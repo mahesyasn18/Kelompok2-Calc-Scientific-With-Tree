@@ -3,11 +3,20 @@
 ## 💻 Clone Repository
 ### Clone Repository
 ```bash
-git clone https://github.com/mahesyasn18/Proyek2-AplikasiCalcScientific.git
+git clone https://github.com/mahesyasn18/Kelompok2-Calc-Scientific-With-Tree.git
 ```
 ```bash
 cd Kelompok2-Calc-Scientific-With-Tree
 ```
+
+## 📥 Change Branch Repository
+```bash
+git brach branch_name
+```
+```bash
+git switch branch_name
+```
+
 
 ## 📥 Push Repository
 ```bash

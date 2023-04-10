@@ -362,6 +362,9 @@ double kalkulasi(address P){
 		}else if(P->data=='^'){
 			return pow(kalkulasi(P->left) , kalkulasi(P->right));
 		}
+		else if(P->data=='v'){
+			return operasiAkar(right,left);
+		}
 	}
 	
 	return P->operand;

@@ -4,7 +4,8 @@
 #include <math.h>
 #include <ctype.h>
 
-#include "header.h"
+#include "tree.h"
+#include "header/mahesya_dev.h"
 
 void InfixToPostfix(infotype* input, infotype postfix[]){
 	infotype stack[50], c;
@@ -59,7 +60,9 @@ int derajatOperator(infotype oper){
 		return 2;
 	} else if(oper=='^' || oper=='v'){
 		return 3;
-	} else{
+	}  else if(oper=='(' || oper==')'){
+		return 0;
+	}else{
 		printf("Error, Operator Tidak Diketahui: %c", oper);
         exit(1);
 	}
@@ -345,8 +348,9 @@ address CreateNodeOperator(char input){
 
 double kalkulasi(address P){
 	if(P->isOperator==1){
+		double left= kalkulasi(P->left),right= kalkulasi(P->right);
 		if(P->data=='+'){
-			return kalkulasi(P->left) + kalkulasi(P->right);
+			return operasiPenjumlahan(left, right);
 		}else if(P->data=='-'){
 			return kalkulasi(P->left) - kalkulasi(P->right);
 		}else if(P->data=='-'){
@@ -367,9 +371,11 @@ double calculate(address root){
 	// root adalah operator
     if(root->isOperator){
     	// Melakukan perhitungan
+    	double left= calculate(root->left),right= calculate(root->right);
+    	
         switch(root->data){
             case '+':{
-                return calculate(root->left) + calculate(root->right);
+                return left + right;
                 break;
             }
             case '-':{
@@ -397,3 +403,4 @@ double calculate(address root){
     
     return root->operand;
 }
+

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "header.h"
+#include "tree.h"
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
 	Z.First=NULL;
 	Z.Last=NULL;
 	X.Head=NULL;
-	printf("enter expression:");
+	printf("Masukkan Ekspresi:");
 	scanf("%s",&input);fflush(stdin);
 	convertPostfix(&Z,&X,input);
 //	temp=PopStack(&X);
@@ -30,3 +30,4 @@ int main(int argc, char *argv[]) {
 	PostOrder(P);
 	return 0;
 }
+

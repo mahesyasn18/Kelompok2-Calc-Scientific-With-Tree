@@ -1,5 +1,5 @@
-#ifndef kalku_h
-#define kalku_h
+#ifndef tree_h
+#define tree_h
 #define Data(P) (P)->data
 #define right(P) (P)->right
 #define left(P) (P)->left
@@ -54,5 +54,6 @@ double kalkulasi(address P);
 
 
 #endif
+
 
 

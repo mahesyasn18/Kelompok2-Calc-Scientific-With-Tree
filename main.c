@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 	X.Head=NULL;
 	printf("Masukkan Ekspresi:");
 	scanf("%s",&input);fflush(stdin);
-	convertPostfix(&Z,&X,input);
+	Z=convertPostfix(input);
 	P=Create_Tree(Z);
 	hasil=kalkulasi(P);
 	printf("hasilnya adalah %g\n",hasil);

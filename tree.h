@@ -42,7 +42,7 @@ address BuildTree(infotype postfix[]);
 void PostOrder(address P);
 void ViewAsc(Queue First);
 void EnqueOperand(Queue *First,float item,node *P);
-void convertPostfix(Queue *Z,Stack *X,char *input);
+Queue convertPostfix(char *input);
 void ViewAscStack(Stack First);
 void PushStack(Stack *First,char item,node *P);
 char PopStack(Stack *First);

@@ -182,7 +182,7 @@ void ViewAscStack(Stack First){
 }
 
 void EnqueOperator(Queue *First,char item,node *P){
-	*P = (ElmtList*) malloc (sizeof (ElmtList));
+	*P = (node) malloc (sizeof (ElmtList));
 	if(*P==NULL){
 		printf("Gagal Alokasi");
 	}else{
@@ -203,7 +203,7 @@ void EnqueOperator(Queue *First,char item,node *P){
 }
 
 void EnqueOperand(Queue *First,float item,node *P){
-	*P = (ElmtList*) malloc (sizeof (ElmtList));
+	*P = (node) malloc (sizeof (ElmtList));
 	if(P==NULL){
 		printf("Gagal Alokasi");
 	}else{
@@ -223,8 +223,13 @@ void EnqueOperand(Queue *First,float item,node *P){
 }
 }
 //float kalkulasi()
-void convertPostfix(Queue *Z,Stack *X,char *input){
+Queue convertPostfix(char *input){
 	node P;
+	Queue Z;
+	Stack X;
+	Z.First=NULL;
+	Z.Last=NULL;
+	X.Head=NULL;
 	char token,c;
 	int i,temp;
 	float angka;
@@ -239,33 +244,33 @@ void convertPostfix(Queue *Z,Stack *X,char *input){
 			}
 			num[j]='\0';
 			angka=strtof(num, NULL);
-			EnqueOperand(&*Z,angka,&P);
+			EnqueOperand(&Z,angka,&P);
 			i--;
 			
 			
-		}else if(isOperator(token)&&X->Head!=NULL&&X->Head->oprtr!='('){
-			c=X->Head->oprtr;
-			while(derajatOperator(token)<=derajatOperator(c)&&X->Head!=NULL){
-				EnqueOperator(&*Z,PopStack(&*X),&P);
+		}else if(isOperator(token)&& X.Head!=NULL && X.Head->oprtr!='('){
+			c=X.Head->oprtr;
+			while(derajatOperator(token)<=derajatOperator(c) && X.Head!=NULL){
+				EnqueOperator(&Z,PopStack(&X),&P);
 			}
-			PushStack(&*X,token,&P);
+			PushStack(&X,token,&P);
 		}else if(token==')'){
-			c=X->Head->oprtr;
+			c=X.Head->oprtr;
 			while(c!='('){
-				EnqueOperator(&*Z,PopStack(&*X),&P);
-				c=X->Head->oprtr;
+				EnqueOperator(&Z,PopStack(&X),&P);
+				c=X.Head->oprtr;
 			}
-			PopStack(&*X);
+			PopStack(&X);
 		}else{
-			PushStack(&*X,token,&P);
+			PushStack(&X,token,&P);
 		}
 	}
-	while(X->Head!=NULL){
-		c=PopStack(&*X);
-		EnqueOperator(&*Z,c,&P);
+	while(X.Head!=NULL){
+		c=PopStack(&X);
+		EnqueOperator(&Z,c,&P);
 	}
 	
-	
+	return Z;
 }
 
 address Create_Tree(Queue Z){

@@ -6,6 +6,7 @@
 
 #include "tree.h"
 #include "header/mahesya_dev.h"
+#include "header/adinda_dev.h"
 
 void InfixToPostfix(infotype* input, infotype postfix[]){
 	infotype stack[50], c;
@@ -358,7 +359,7 @@ double kalkulasi(address P){
 		}else if(P->data=='/'){
 			return kalkulasi(P->left) / kalkulasi(P->right);
 		}else if(P->data=='*'){
-			return kalkulasi(P->left) * kalkulasi(P->right);
+			return operasiPerkalian(left,right);
 		}else if(P->data=='^'){
 			return pow(kalkulasi(P->left) , kalkulasi(P->right));
 		}

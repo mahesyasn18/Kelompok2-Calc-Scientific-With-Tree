@@ -184,50 +184,76 @@ void ViewAscStack(Stack First){
 	}
 }
 
-void EnqueOperator(Queue *First, char item, node *P){
-	*P = (ElmtList*) malloc (sizeof (ElmtList));
-	if(*P==NULL){
-		printf("Gagal Alokasi");
-	}else{
-		(*P)->oprtr=item;
-		(*P)->next=NULL;
-		(*P)->isoperator=1;
-		if(First->First==NULL){
-			(*First).First=*P;
-			(*First).Last=*P;
-			(*First).Last->next=NULL;	
-		}else{
-			(*P)->next=NULL;
-			First->Last->next=*P;
-			First->Last=*P;
-		}
+node CreateNodeList(){
+	node P;
 	
-}
-}
-
-void EnqueOperand(Queue *First,float item,node *P){
-	*P = (ElmtList*) malloc (sizeof (ElmtList));
+	P = (node) malloc (sizeof (ElmtList));
 	if(P==NULL){
 		printf("Gagal Alokasi");
-	}else{
-		(*P)->operand=item;
-		(*P)->next=NULL;
-		(*P)->isoperator=0;
-		if(First->First==NULL){
-			(*First).First=*P;
-			(*First).Last=*P;
-			(*First).Last->next=NULL;	
-		}else{
-			(*P)->next=NULL;
-			First->Last->next=*P;
-			First->Last=*P;
-		}
+	} else{
+		(P)->next=NULL;
+		(P)->isoperator=1;
+	}
 	
+	return P;
 }
+
+void EnqueOperator(Queue *Postfix, char item){
+//	*P = (node) malloc (sizeof (ElmtList));
+//	if(*P==NULL){
+//		printf("Gagal Alokasi");
+//	}else{
+//		(*P)->oprtr=item;
+//		(*P)->next=NULL;
+//		(*P)->isoperator=1;
+//		if(First->First==NULL){
+//			(*First).First=*P;
+//			(*First).Last=*P;
+//			(*First).Last->next=NULL;	
+//		}else{
+//			(*P)->next=NULL;
+//			First->Last->next=*P;
+//			First->Last=*P;
+//		}
+//	
+//}
+	node P;
+	
+	P=CreateNodeList();
+	P->oprtr=item;
+	if(Postfix->First==NULL){
+		Postfix->First=P;
+		Postfix->Last=P;
+		Postfix->Last->next=NULL;
+	} else{
+		Postfix->Last->next=P;
+		Postfix->Last=P;
+	}
+}
+
+void EnqueOperand(Queue *Postfix,float item){
+	node P;
+	
+	P=CreateNodeList();
+	P->operand=item;
+	P->isoperator=0;
+	if(Postfix->First==NULL){
+		Postfix->First=P;
+		Postfix->Last=P;
+		Postfix->Last->next=NULL;
+	} else{
+		Postfix->Last->next=P;
+		Postfix->Last=P;
+	}
 }
 //float kalkulasi()
-void convertPostfix(Queue *Z,Stack *X,char *input){
+Queue convertPostfix(char *input){
 	node P;
+	Queue Z;
+	Stack X;
+	Z.First=NULL;
+	Z.Last=NULL;
+	X.Head=NULL;
 	char token,c;
 	int i,temp,j;
 	float angka;
@@ -242,11 +268,12 @@ void convertPostfix(Queue *Z,Stack *X,char *input){
 			}
 			num[j]='\0';
 			angka=strtof(num, NULL);
-			EnqueOperand(&*Z,angka,&P);
+			EnqueOperand(&Z,angka);
 			i--;
 			
 			
-		}else if (token=='s' ||token=='c' ||token=='t' ||token=='a' ){
+		}
+		else if (token=='s' ||token=='c' ||token=='t' ||token=='a' ){
 			char trigono[7];
 			char sudut[20];
 			j=0;
@@ -263,31 +290,31 @@ void convertPostfix(Queue *Z,Stack *X,char *input){
 			sudut[x]='\0';
 			angka=strtod(sudut, NULL);
 			hasil=prosesPerhitunganTrigonometri(angka, trigono);
-			EnqueOperand(Z, hasil, &P);
+			EnqueOperand(&Z, hasil);
 			
-		}else if(isOperator(token)&&X->Head!=NULL&&X->Head->oprtr!='('){
-			c=X->Head->oprtr;
-			while(derajatOperator(token)<=derajatOperator(c)&&X->Head!=NULL){
-				EnqueOperator(&*Z,PopStack(&*X),&P);
+		}else if(isOperator(token)&& X.Head!=NULL&&X.Head->oprtr!='('){
+			c=X.Head->oprtr;
+			while(derajatOperator(token)<=derajatOperator(c)&&X.Head!=NULL){
+				EnqueOperator(&Z,PopStack(&X));
 			}
-			PushStack(&*X,token,&P);
+			PushStack(&X,token,&P);
 		}else if(token==')'){
-			c=X->Head->oprtr;
+			c=X.Head->oprtr;
 			while(c!='('){
-				EnqueOperator(&*Z,PopStack(&*X),&P);
-				c=X->Head->oprtr;
+				EnqueOperator(&Z,PopStack(&X));
+				c=X.Head->oprtr;
 			}
-			PopStack(&*X);
+			PopStack(&X);
 		}else{
-			PushStack(&*X,token,&P);
+			PushStack(&X,token,&P);
 		}
 	}
-	while(X->Head!=NULL){
-		c=PopStack(&*X);
-		EnqueOperator(&*Z,c,&P);
+	while(X.Head!=NULL){
+		c=PopStack(&X);
+		EnqueOperator(&Z,c);
 	}
 	
-	
+	return Z;
 }
 
 address Create_Tree(Queue Z){

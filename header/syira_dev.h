@@ -10,12 +10,6 @@ double operasiPengurangan(double bilangansatu, double bilangandua ){
 	return bilangansatu - bilangandua;
 }
 
-double operasiSinus(double bilangan)
-{
-	double radian;
-    radian = bilangan * M_PI /180;
-    return sin(radian);
-}
 
 double operasiFaktorial(double factorial){
 	int i, n;

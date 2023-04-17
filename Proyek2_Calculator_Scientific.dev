@@ -29,7 +29,11 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=1
 CompilerSettings=0000000000000000001000000
+<<<<<<< HEAD
 UnitCount=5
+=======
+UnitCount=9
+>>>>>>> 958cb35a2d98305fdc1f4ad359e3f94cdd2bd401
 
 [VersionInfo]
 Major=1
@@ -100,3 +104,46 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+<<<<<<< HEAD
+=======
+[Unit6]
+FileName=header\AhmadFauzy_dev.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit7]
+FileName=header\AryaKusumah_dev.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit8]
+FileName=header\Faisal_dev.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=header\syira_dev.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+>>>>>>> 958cb35a2d98305fdc1f4ad359e3f94cdd2bd401

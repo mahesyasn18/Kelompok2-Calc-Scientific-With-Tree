@@ -50,7 +50,7 @@ address Create_Tree(Queue Z);
 address CreateNodeOperand(float input);
 address CreateNodeOperator(char input);
 double kalkulasi(address P);
-
+double prosesPerhitunganTrigonometri(double angka, char operator[]);
 
 
 #endif

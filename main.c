@@ -17,12 +17,6 @@ int main(int argc, char *argv[]) {
 	printf("Masukkan Ekspresi:");
 	scanf("%s",&input);fflush(stdin);
 	convertPostfix(&Z,&X,input);
-//	temp=PopStack(&X);
-//	ViewAsc(Z);
-//	ViewAscStack(X);
-//	printf("input: %s", input);
-//	InfixToPostfix("1*(2+3)/4^5-6", postfix);
-//	printf("postfix: %s", postfix);
 	P=Create_Tree(Z);
 	hasil=kalkulasi(P);
 	printf("hasilnya adalah %g\n",hasil);

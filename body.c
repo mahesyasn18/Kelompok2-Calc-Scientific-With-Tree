@@ -6,6 +6,11 @@
 
 #include "tree.h"
 #include "header/mahesya_dev.h"
+#include "header/AhmadFauzy_dev.h"
+#include "header/syira_dev.h"
+#include "header/adinda_dev.h"
+#include "header/AhmadFauzy_dev.h"
+#include "header/Faisal_dev.h"
 
 void InfixToPostfix(infotype* input, infotype postfix[]){
 	infotype stack[50], c;
@@ -18,19 +23,9 @@ void InfixToPostfix(infotype* input, infotype postfix[]){
 	for(i=0;i<length;i++){
 		c=input[i];
 		if(isdigit(c)){
-//			char num[length];
-//			int j=0;
-//			while(isdigit(input[i] || input[i]=='.')){
-//				num[j++]=input[i];
-//				i++;
-//			}
-//			i--;
-//			postfix[x++]=num;
 			postfix[x++]=c;
 		} else{
 			if(isOperator(c) && top!=-1 && stack[top]!='('){
-//				printf("\noper: %c", c);
-//				printf("\ntop: %c", stack[top]);
 				oper1=derajatOperator(c);
 				oper2=derajatOperator(stack[top]);
 				while(oper1<=oper2 && top!=-1 ){
@@ -38,7 +33,6 @@ void InfixToPostfix(infotype* input, infotype postfix[]){
 				}
 				stack[++top]=c;
 			} else if(c==')'){
-//				printf("\noper: %c", c);
 				postfix[x++]=stack[top--];
 				top--;	
 			} else{
@@ -137,8 +131,6 @@ void PushStack(Stack *First,char item,node *P){
 			(*P)->next=First->Head;
 			First->Head=*P;
 		}
-	
-	
 }
 }
 
@@ -190,8 +182,8 @@ void ViewAscStack(Stack First){
 }
 
 void EnqueOperator(Queue *First,char item,node *P){
-	*P = (address) malloc (sizeof (ElmtList));
-	if(P==NULL){
+	*P = (ElmtList*) malloc (sizeof (ElmtList));
+	if(*P==NULL){
 		printf("Gagal Alokasi");
 	}else{
 		(*P)->oprtr=item;
@@ -211,7 +203,7 @@ void EnqueOperator(Queue *First,char item,node *P){
 }
 
 void EnqueOperand(Queue *First,float item,node *P){
-	*P = (address) malloc (sizeof (ElmtList));
+	*P = (ElmtList*) malloc (sizeof (ElmtList));
 	if(P==NULL){
 		printf("Gagal Alokasi");
 	}else{
@@ -235,7 +227,6 @@ void convertPostfix(Queue *Z,Stack *X,char *input){
 	node P;
 	char token,c;
 	int i,temp;
-//	float num=0,num2;
 	float angka;
 	for(i=0;i<strlen(input);i++){
 		token=input[i];
@@ -252,19 +243,6 @@ void convertPostfix(Queue *Z,Stack *X,char *input){
 			i--;
 			
 			
-			
-//			if(isdigit(token)){
-//			num=num*10+(token-'0');
-//			}else if(token=='.'){
-//			num2=(input[i+1]-'0');
-//			num2=num2/10;
-//			num=num+num2;	
-//			i++;
-//			}
-//			 if(isdigit(input[i+1])!=1&&input[i+1]!='.'){
-//				EnqueOperand(&*Z,num,&P);
-//				num=0;
-//			}
 		}else if(isOperator(token)&&X->Head!=NULL&&X->Head->oprtr!='('){
 			c=X->Head->oprtr;
 			while(derajatOperator(token)<=derajatOperator(c)&&X->Head!=NULL){
@@ -311,13 +289,6 @@ address Create_Tree(Queue Z){
 			d=Q->operand;
 			P=CreateNodeOperand(d);
 		}
-//		if(isdigit(c)){
-//			P=CreateNode(c);
-//		} else{
-//			P=CreateNode(c);
-//			right(P)=stack[top--];
-//			left(P)=stack[top--];
-//		}
 		stack[++top]=P;
 		Q=Q->next;
 	}
@@ -352,13 +323,11 @@ double kalkulasi(address P){
 		if(P->data=='+'){
 			return operasiPenjumlahan(left, right);
 		}else if(P->data=='-'){
-			return kalkulasi(P->left) - kalkulasi(P->right);
-		}else if(P->data=='-'){
-			return kalkulasi(P->left) - kalkulasi(P->right);
+			return operasiPengurangan(left,right);
 		}else if(P->data=='/'){
-			return kalkulasi(P->left) / kalkulasi(P->right);
+			return operasiPembagian(left,right);
 		}else if(P->data=='*'){
-			return kalkulasi(P->left) * kalkulasi(P->right);
+			return operasiPerkalian(left,right);
 		}else if(P->data=='^'){
 			return pow(kalkulasi(P->left) , kalkulasi(P->right));
 		}
@@ -370,40 +339,4 @@ double kalkulasi(address P){
 	return P->operand;
 }
 
-double calculate(address root){
-	// root adalah operator
-    if(root->isOperator){
-    	// Melakukan perhitungan
-    	double left= calculate(root->left),right= calculate(root->right);
-    	
-        switch(root->data){
-            case '+':{
-                return left + right;
-                break;
-            }
-            case '-':{
-                return calculate(root->left) - calculate(root->right);
-                break;
-            }
-            case '*':{
-                return calculate(root->left) * calculate(root->right);
-                break;
-            }
-            case '/':{
-                if(calculate(root->right) == 0) {
-				}
-                else
-                    return calculate(root->left) / calculate(root->right);
-                break;
-            }
-            case '^':{
-                return pow(calculate(root->left), calculate(root->right));
-                break;
-            }
-            
-        }
-    }
-    
-    return root->operand;
-}
 

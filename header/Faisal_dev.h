@@ -1,7 +1,6 @@
 #ifndef Faisal_dev_H
 #define Faisal_dev_H
 #include "adinda_dev.h"
-#include "AhmadFauzy_dev.h"
 
 //operasi pangkat
  /*Fungsi operasi pangkat untuk dua bilangan.

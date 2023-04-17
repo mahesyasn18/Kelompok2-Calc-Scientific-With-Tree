@@ -3,25 +3,11 @@
 #ifndef adinda_dev_H
 #define adinda_dev_H
 #define PI 3.14159265358979323846
-
-
+#include "AhmadFauzy_dev.h"
+#include "syira_dev.h"
 
 double operasiPerkalian(double bilangansatu, double bilangandua){
 	return bilangansatu * bilangandua;
-}
-
-double operasiSinus(double bilangan){ // menghitung nilai sinus dari suatu sudut
-	double radian=bilangan*(PI/180); // inputan menggunakan satuan derajat sehigga perlu dikonversi terlebih dahulu menuju radian
-	double jumlah=0.0; // untuk menghitung nilai jumlah semua sukunya
-	double nilaipersuku=radian; // nilaipersuku adalah nilai yang dihasilkan pengoperasian per sukunya
-	
-	int n = 1; 
-    while (nilaipersuku != 0.0) {
-        jumlah += nilaipersuku;
-        n += 2; // ditambahkan dengan 2 karena suku yg digunakan adalah suku ganjil sebab turunan ganjil merupakan sinus itu sendiri
-        nilaipersuku = (-1.0) * nilaipersuku * radian * radian / ((n-1) * n); //menggunakan deret taylor
-    }
-    return jumlah;
 }
 
 double operasiCosinus(double bilangan){ // menghitung nilai cosinus dari suatu sudut

@@ -1,5 +1,6 @@
 #ifndef AhmadFauzy_dev_h
 #define AhmadFauzy_dev_h
+#include<stdio.h>
 #define delta 0.000001
 
 

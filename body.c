@@ -6,11 +6,14 @@
 
 #include "tree.h"
 #include "header/mahesya_dev.h"
+#include "header/adinda_dev.h"
+
 #include "header/AhmadFauzy_dev.h"
 #include "header/syira_dev.h"
 #include "header/adinda_dev.h"
 #include "header/AhmadFauzy_dev.h"
 #include "header/Faisal_dev.h"
+
 
 void InfixToPostfix(infotype* input, infotype postfix[]){
 	infotype stack[50], c;
@@ -231,13 +234,13 @@ Queue convertPostfix(char *input){
 	Z.Last=NULL;
 	X.Head=NULL;
 	char token,c;
-	int i,temp;
+	int i,temp,j;
 	float angka;
 	for(i=0;i<strlen(input);i++){
 		token=input[i];
 		if(isdigit(token)){
 			char num[strlen(input)];
-			int j=0;
+			j=0;
 			while(isdigit(input[i]) || input[i]=='.'){
 				num[j++]=input[i];
 				i++;
@@ -248,9 +251,29 @@ Queue convertPostfix(char *input){
 			i--;
 			
 			
-		}else if(isOperator(token)&& X.Head!=NULL && X.Head->oprtr!='('){
+		}
+		else if (token=='s' ||token=='c' ||token=='t' ||token=='a' ){
+			char trigono[7];
+			char sudut[20];
+			j=0;
+			int x=0;
+			float hasil;
+			while(input[i]!=')'){
+				if(isdigit(input[i]) || input[i]=='.'){
+					sudut[x++]=input[i];
+				}else{
+					trigono[j++]=input[i];
+				} 
+				i++;
+			}
+			sudut[x]='\0';
+			angka=strtod(sudut, NULL);
+			hasil=prosesPerhitunganTrigonometri(angka, trigono);
+			EnqueOperand(&Z, hasil, &P);
+			
+		}else if(isOperator(token)&& X.Head!=NULL&&X.Head->oprtr!='('){
 			c=X.Head->oprtr;
-			while(derajatOperator(token)<=derajatOperator(c) && X.Head!=NULL){
+			while(derajatOperator(token)<=derajatOperator(c)&&X.Head!=NULL){
 				EnqueOperator(&Z,PopStack(&X),&P);
 			}
 			PushStack(&X,token,&P);
@@ -344,4 +367,50 @@ double kalkulasi(address P){
 	return P->operand;
 }
 
+double prosesPerhitunganTrigonometri(double angka, char operator[]){
+	if(strcmp(operator,"sin(")==0){
+		return operasiSinus(angka);
+	}
+	else if(strcmp(operator,"cos(")==0){
+		return operasiCosinus(angka);
+	}else if(strcmp(operator,"tan(")==0){
+		return operasiTangen(angka);
+	}else if(strcmp(operator,"asin(")==0){
+		return operasiAsin(angka);
+	}else if(strcmp(operator,"acos(")==0){
+		return operasiAcos(angka);
+	}else if(strcmp(operator,"atan(")==0){
+		return operasiAtan(angka);
+	}else if(strcmp(operator,"csc(")==0){
+		return operasiCosecan(angka);
+	}else if(strcmp(operator,"sec(")==0){
+		return operasiSecan(angka);
+	}else if(strcmp(operator,"cot(")==0){
+		return operasiCotangen(angka);
+	}
+	else{
+		if(strcmp(operator,"SIN")==0||strcmp(operator,"SIN(")==0||strcmp(operator,"sin")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya sin(...), contoh sin(60)", operator);
+		}else if(strcmp(operator,"COS")==0||strcmp(operator,"COS(")==0||strcmp(operator,"cos")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya cos(...), contoh cos(45)", operator);
+		}else if(strcmp(operator,"TAN")==0||strcmp(operator,"TAN(")==0||strcmp(operator,"tan")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya tan(...), contoh tan(30)", operator);
+		}else if(strcmp(operator,"ASIN")==0||strcmp(operator,"ASIN(")==0||strcmp(operator,"asin")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya asin(...), contoh asin(0.5)", operator);
+		}else if(strcmp(operator,"ACOS")==0||strcmp(operator,"ACOS(")==0||strcmp(operator,"acos")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya acos(...), contoh acos(0.5)", operator);
+		}else if(strcmp(operator,"ATAN")==0||strcmp(operator,"ATAN(")==0||strcmp(operator,"atan")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya atan(...), contoh atan(0.5)", operator);
+		}else if(strcmp(operator,"CSC")==0||strcmp(operator,"CSC(")==0||strcmp(operator,"csc")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya csc(...), contoh csc(40)", operator);
+		}else if(strcmp(operator,"SEC")==0||strcmp(operator,"SEC(")==0||strcmp(operator,"sec")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya sec(...), contoh sec(0.5)", operator);
+		}else if(strcmp(operator,"COT")==0||strcmp(operator,"COT(")==0||strcmp(operator,"cot")==0){
+			printf("Error, operator yang anda masukkan: %s, seharusnya COT(...), contoh cot(0.5)", operator);
+		}else{
+			printf("Operator Tidak Diketahui sin: %s", operator);
+		}
+        exit(1);
+	}
+}
 

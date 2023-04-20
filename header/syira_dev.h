@@ -10,6 +10,7 @@ double operasiPengurangan(double bilangansatu, double bilangandua ){
 	return bilangansatu - bilangandua;
 }
 
+
 double operasiFaktorial(double factorial){
 	int i, n;
 	n = factorial;

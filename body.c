@@ -72,45 +72,12 @@ int isOperator(infotype oper){
 	return 0;
 }
 
-address CreateNode(infotype data){
-	address P;
-	
-	P = (address) malloc (sizeof (Tree));
-	Data(P)=data;
-	right(P)=Nil;
-	left(P)=Nil;
-	
-	return P;
-}
-
-address BuildTree(infotype postfix[]){
-	address P;
-	address stack[50];
-	int i, len, top=-1;
-	infotype c;
-	
-	len=strlen(postfix);
-	
-	for(i=0;i<len;i++){
-		c=postfix[i];
-		if(isdigit(c)){
-			P=CreateNode(c);
-		} else{
-			P=CreateNode(c);
-			right(P)=stack[top--];
-			left(P)=stack[top--];
-		}
-		stack[++top]=P;
-	}
-	return(stack[0]);
-}
-
 void PostOrder(address P){
 	
 	if(P!=Nil){
 		PostOrder(left(P));
 		PostOrder(right(P));
-		if(P->isOperator==1){
+		if(P->data!='\0'){
 			printf("%c ", P->data);
 		}else{
 			printf("%g ",P->operand);
@@ -118,23 +85,23 @@ void PostOrder(address P){
 	}
 }
 
-void PushStack(Stack *First,char item,node *P){
-	*P = (node) malloc (sizeof (ElmtList));
+void PushStack(Stack *First,char item){
+	node P;
+	P = CreateNodeList();
 	if(P==NULL){
 		printf("Gagal Alokasi");
-	}else{
-
-		(*P)->oprtr=item;
-		(*P)->isoperator=1;
-		(*P)->next=NULL;
+	}
+	else{
+		P->oprtr=item;
+		P->next=NULL;
 		if(First->Head==NULL){
-			(*First).Head=*P;
-			(*First).Head->next=NULL;	
+			First->Head=P;
+			First->Head->next=NULL;	
 		}else{
-			(*P)->next=First->Head;
-			First->Head=*P;
+			P->next=First->Head;
+			First->Head=P;
 		}
-}
+	}
 }
 
 char PopStack(Stack *First){
@@ -184,58 +151,64 @@ void ViewAscStack(Stack First){
 	}
 }
 
-void EnqueOperator(Queue *First,char item,node *P){
-	*P = (node) malloc (sizeof (ElmtList));
-	if(*P==NULL){
-		printf("Gagal Alokasi");
-	}else{
-		(*P)->oprtr=item;
-		(*P)->next=NULL;
-		(*P)->isoperator=1;
-		if(First->First==NULL){
-			(*First).First=*P;
-			(*First).Last=*P;
-			(*First).Last->next=NULL;	
-		}else{
-			(*P)->next=NULL;
-			First->Last->next=*P;
-			First->Last=*P;
-		}
+node CreateNodeList(){
+	node P;
 	
-}
-}
-
-void EnqueOperand(Queue *First,float item,node *P){
-	*P = (node) malloc (sizeof (ElmtList));
+	P = (node) malloc (sizeof (ElmtList));
 	if(P==NULL){
 		printf("Gagal Alokasi");
-	}else{
-		(*P)->operand=item;
-		(*P)->next=NULL;
-		(*P)->isoperator=0;
-		if(First->First==NULL){
-			(*First).First=*P;
-			(*First).Last=*P;
-			(*First).Last->next=NULL;	
-		}else{
-			(*P)->next=NULL;
-			First->Last->next=*P;
-			First->Last=*P;
-		}
+	} else{
+		(P)->next=NULL;
+	}
 	
+	return P;
 }
+
+void EnqueOperator(Queue *Postfix, char item){
+	node P;
+	
+	P=CreateNodeList();
+	P->oprtr=item;
+	if(Postfix->First==NULL){
+		Postfix->First=P;
+		Postfix->Last=P;
+		Postfix->Last->next=NULL;
+	} else{
+		Postfix->Last->next=P;
+		Postfix->Last=P;
+	}
 }
+
+void EnqueOperand(Queue *Postfix,double item){
+	node P;
+
+	P=CreateNodeList();
+	P->oprtr = '\0';
+	P->operand=item;
+	
+	if(Postfix->First==NULL){
+		Postfix->First=P;
+		Postfix->Last=P;
+		Postfix->Last->next=NULL;
+	} else{
+		Postfix->Last->next=P;
+		Postfix->Last=P;
+	}
+}
+	
 //float kalkulasi()
 Queue convertPostfix(char *input){
-	node P;
-	Queue Z;
-	Stack X;
-	Z.First=NULL;
-	Z.Last=NULL;
-	X.Head=NULL;
-	char token,c;
+	Queue queueOperand;
+	Stack operatorStackTemp;
+	
+	queueOperand.First=NULL;
+	queueOperand.Last=NULL;
+	operatorStackTemp.Head=NULL;
+	
+	char token,tempOperator;
 	int i,temp,j;
-	float angka;
+	
+	double angka;
 	for(i=0;i<strlen(input);i++){
 		token=input[i];
 		if(isdigit(token)){
@@ -246,8 +219,8 @@ Queue convertPostfix(char *input){
 				i++;
 			}
 			num[j]='\0';
-			angka=strtof(num, NULL);
-			EnqueOperand(&Z,angka,&P);
+			angka=strtod(num, NULL);
+			EnqueOperand(&queueOperand,angka);
 			i--;
 			
 			
@@ -257,7 +230,7 @@ Queue convertPostfix(char *input){
 			char sudut[20];
 			j=0;
 			int x=0;
-			float hasil;
+			double hasil;
 			while(input[i]!=')'){
 				if(isdigit(input[i]) || input[i]=='.'){
 					sudut[x++]=input[i];
@@ -269,46 +242,45 @@ Queue convertPostfix(char *input){
 			sudut[x]='\0';
 			angka=strtod(sudut, NULL);
 			hasil=prosesPerhitunganTrigonometri(angka, trigono);
-			EnqueOperand(&Z, hasil, &P);
+			EnqueOperand(&queueOperand, hasil);
 			
-		}else if(isOperator(token)&& X.Head!=NULL&&X.Head->oprtr!='('){
-			c=X.Head->oprtr;
-			while(derajatOperator(token)<=derajatOperator(c)&&X.Head!=NULL){
-				EnqueOperator(&Z,PopStack(&X),&P);
+		}else if(isOperator(token)&& operatorStackTemp.Head!=NULL && operatorStackTemp.Head->oprtr!='('){
+			tempOperator=operatorStackTemp.Head->oprtr;
+			while(derajatOperator(token)<=derajatOperator(tempOperator) && operatorStackTemp.Head!=NULL){
+				EnqueOperator(&queueOperand,PopStack(&operatorStackTemp));
 			}
-			PushStack(&X,token,&P);
+			PushStack(&operatorStackTemp,token);
 		}else if(token==')'){
-			c=X.Head->oprtr;
-			while(c!='('){
-				EnqueOperator(&Z,PopStack(&X),&P);
-				c=X.Head->oprtr;
+			tempOperator=operatorStackTemp.Head->oprtr;
+			while(tempOperator!='('){
+				EnqueOperator(&queueOperand,PopStack(&operatorStackTemp));
+				tempOperator=operatorStackTemp.Head->oprtr;
 			}
-			PopStack(&X);
+			PopStack(&operatorStackTemp);
 		}else{
-			PushStack(&X,token,&P);
+			PushStack(&operatorStackTemp,token);
 		}
 	}
-	while(X.Head!=NULL){
-		c=PopStack(&X);
-		EnqueOperator(&Z,c,&P);
+	while(operatorStackTemp.Head!=NULL){
+		tempOperator=PopStack(&operatorStackTemp);
+		EnqueOperator(&queueOperand,tempOperator);
 	}
 	
-	return Z;
+	return queueOperand;
 }
 
 address Create_Tree(Queue Z){
-	
 	address P;
 	address stack[50];
 	node Q;
 	int i, len, top=-1;
 	infotype c;
-	float d;
+	double d;
 	
 	Q=Z.First;
 	
 	while(Q!=NULL){
-		if(Q->isoperator==1){
+		if(Q->oprtr!='\0'){
 			c=Q->oprtr;
 			P=CreateNodeOperator(c);
 			right(P)=stack[top--];
@@ -323,13 +295,13 @@ address Create_Tree(Queue Z){
 	return(stack[0]);
 }
 
-address CreateNodeOperand(float input){
+address CreateNodeOperand(double input){
 	address P;
 	P = (address) malloc (sizeof (Tree));
 	P->operand=input;
-	P->isOperator=0;
 	P->left=NULL;
 	P->right=NULL;
+	P->data = '\0';
 	return P;
 	
 }
@@ -338,7 +310,6 @@ address CreateNodeOperator(char input){
 	address P;
 	P = (address) malloc (sizeof (Tree));
 	P->data=input;
-	P->isOperator=1;
 	P->left=NULL;
 	P->right=NULL;
 	return P;
@@ -346,7 +317,7 @@ address CreateNodeOperator(char input){
 }
 
 double kalkulasi(address P){
-	if(P->isOperator==1){
+	if(P->data!='\0'){
 		double left= kalkulasi(P->left),right= kalkulasi(P->right);
 		if(P->data=='+'){
 			return operasiPenjumlahan(left, right);

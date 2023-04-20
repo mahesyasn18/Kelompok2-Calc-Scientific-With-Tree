@@ -5,23 +5,23 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char *argv[]) {
-	float hasil;
-	char input[100],temp;
-	address P;
-	Stack X;
-	Queue Z;
-	node Q;
-	Z.First=NULL;
-	Z.Last=NULL;
-	X.Head=NULL;
+	double hasil;
+	char input[100];
+	address root;
+	Queue postfix;
+	
 	printf("Masukkan Ekspresi:");
-	scanf("%s",&input);fflush(stdin);
-	Z=convertPostfix(input);
-	P=Create_Tree(Z);
-	hasil=kalkulasi(P);
-	printf("hasilnya adalah %g\n",hasil);
+	scanf("%s",&input);
+	
+	postfix=convertPostfix(input);
+	root=Create_Tree(postfix);
+	hasil=kalkulasi(root);
+	
 	printf("PostOrder: ");
-	PostOrder(P);
+	PostOrder(root);
+	
+	printf("\nhasilnya adalah %g\n",hasil);
+	
 	return 0;
 }
 

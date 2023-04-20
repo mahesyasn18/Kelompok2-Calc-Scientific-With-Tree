@@ -13,7 +13,6 @@ typedef struct Elemen{
 	float operand;
 	address right;
 	address left;
-	int isOperator;
 }Tree;
 
 typedef struct Node *node;
@@ -41,16 +40,17 @@ address CreateNode(infotype data);
 address BuildTree(infotype postfix[]);
 void PostOrder(address P);
 void ViewAsc(Queue First);
-void EnqueOperand(Queue *First,float item,node *P);
+void EnqueOperand(Queue *First,double item);
 Queue convertPostfix(char *input);
 void ViewAscStack(Stack First);
-void PushStack(Stack *First,char item,node *P);
+void PushStack(Stack *First,char item);
 char PopStack(Stack *First);
 address Create_Tree(Queue Z);
-address CreateNodeOperand(float input);
+address CreateNodeOperand(double input);
 address CreateNodeOperator(char input);
 double kalkulasi(address P);
 double prosesPerhitunganTrigonometri(double angka, char operator[]);
+node CreateNodeList();
 
 
 #endif

@@ -211,16 +211,23 @@ Queue convertPostfix(char *input){
 	double angka;
 	for(i=0;i<strlen(input);i++){
 		token=input[i];
-		if(isdigit(token)){
-			char num[strlen(input)];
+		if(isdigit(token) || (token=='-' && isOperator(input[i-1])) || (token=='-' && i==0 )|| (token=='-' && input[i-1]=='(')){
+			char num[strlen(input)], kurung;
 			j=0;
+			
+			if(token=='-'){
+				num[j++]=token;
+				i++;
+			} 
+			
 			while(isdigit(input[i]) || input[i]=='.'){
 				num[j++]=input[i];
 				i++;
 			}
+			
 			num[j]='\0';
 			angka=strtod(num, NULL);
-			EnqueOperand(&queueOperand,angka);
+			EnqueOperand(&queueOperand, angka);
 			i--;
 			
 			

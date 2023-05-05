@@ -4,7 +4,8 @@
 #define adinda_dev_H
 #define PI 3.14159265358979323846
 #include "AhmadFauzy_dev.h"
-#include "syira_dev.h"
+
+
 
 double operasiPerkalian(double bilangansatu, double bilangandua){
 	return bilangansatu * bilangandua;

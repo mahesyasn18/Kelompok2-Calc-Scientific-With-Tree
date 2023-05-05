@@ -38,34 +38,41 @@ double operasiAkardua(double bilangan){
 }
 
 //fungsi operasi Asin
-double operasiAsin(double bilangan){
-    if(bilangan>1 || bilangan<-1)
-    {
-        printf("not define\n");
+
+double operasiAsin(double bilangan) {
+    double sum = bilangan;
+    double term = bilangan;
+    int n = 1;
+    while (term > 0.0000001 || term < -0.0000001) { //ketelitian yang diinginkan
+        term = term * bilangan * bilangan * (2 * n - 1) * (2 * n - 1) / (2 * n * (2 * n + 1));
+        sum += term;
+        n++;
     }
-    else
-    {
-        return asin(bilangan)* SUDUT/ PI;
-    }
+    return sum * 180 / PI;
 }
+
 
 
 //fungsi operasi Acos
-double operasiAcos(double bilangan) {
-	if(bilangan>1 || bilangan<-1)
-    {
-        printf("not define\n");
+
+
+double operasiAcos(double x) {
+    if (x > 1.0 || x < -1.0) {
+        return -1.0; //nilai yang tidak valid
     }
-    else
-    {
-		return acos(bilangan)*SUDUT/ PI;
-    }
-    
+    double asin_value = operasiAsin(x);
+    return  90.0 - asin_value;
 }
+
 //fungsi operasi Atan
-double operasiAtan(double bilangan) {
-    return atan(bilangan) * SUDUT/ PI;
+
+double operasiAtan(double x) {
+	if (x > 1.0 || x < -1.0) {
+	return -1.0; //nilai yang tidak valid
+	}
+	return operasiAcos(sqrt(1.0 / (x*x + 1.0)));
 }
+
 
 
 

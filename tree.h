@@ -10,7 +10,7 @@ typedef char infotype;
 typedef struct Elemen *address;
 typedef struct Elemen{
 	infotype data;
-	float operand;
+	double operand;
 	address right;
 	address left;
 }Tree;
@@ -19,7 +19,7 @@ typedef struct Node *node;
 typedef struct Node{
 	node next;
 	infotype oprtr;
-	float operand;
+	double operand;
 	int isoperator;
 }ElmtList;
 
@@ -33,24 +33,22 @@ node Last;
 }Queue;
 
 
-void InfixToPostfix(infotype* input, infotype postfix[]);
-int derajatOperator(infotype oper);
-int isOperator(infotype oper);
-address CreateNode(infotype data);
-address BuildTree(infotype postfix[]);
-void PostOrder(address P);
-void ViewAsc(Queue First);
-void EnqueOperand(Queue *First,double item);
-Queue convertPostfix(char *input);
-void ViewAscStack(Stack First);
-void PushStack(Stack *First,char item);
-char PopStack(Stack *First);
-address Create_Tree(Queue Z);
-address CreateNodeOperand(double input);
-address CreateNodeOperator(char input);
-double kalkulasi(address P);
-double prosesPerhitunganTrigonometri(double angka, char operator[]);
-node CreateNodeList();
+Queue convert_postfix(char *input);
+int is_operator(infotype oper);
+void enqueue_operand(Queue *First,double item);
+void enqueue_operator(Queue *Postfix, char item);
+int operator_degree(infotype oper);
+void push_stack(Stack *First,char item);
+char pop_stack(Stack *First);
+node create_node_list();
+address create_tree(Queue postfix);
+address create_node_operand(double input);
+address create_node_operator(char input);
+void post_order(address root);
+double dequeue_operand(Queue *queueOperand);
+
+
+
 
 
 #endif

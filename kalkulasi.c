@@ -11,7 +11,8 @@
 
 double kalkulasi(address root){
 	if(root->data!='\0'){
-		double left= kalkulasi(root->left),right= kalkulasi(root->right);
+		double left= kalkulasi(root->left);
+		double right= kalkulasi(root->right);
 		if(root->data=='+'){
 			return operasiPenjumlahan(left, right);
 		}else if(root->data=='-'){
@@ -21,7 +22,7 @@ double kalkulasi(address root){
 		}else if(root->data=='*'){
 			return operasiPerkalian(left,right);
 		}else if(root->data=='^'){
-			return pow(kalkulasi(root->left) , kalkulasi(root->right));
+			return operasiPangkat(left , right);
 		}
 		else if(root->data=='v'){
 			return operasiAkar(right,left);

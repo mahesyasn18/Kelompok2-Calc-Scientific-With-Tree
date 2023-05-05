@@ -1,3 +1,9 @@
+/* File        : Faisal_dev.h */  
+/* Deskripsi   : header file untuk menangani operasi pangkat dan operasi persen */ 
+/* Dibuat oleh : Muhammad Faisal Adha/ 221511057 */ 
+/* Tanggal     : 06-02-2023 */ 
+
+
 #ifndef Faisal_dev_H
 #define Faisal_dev_H
 #include "adinda_dev.h"
@@ -11,11 +17,11 @@
  dengan pangkat bilangandua.*/
 
 double operasiPangkat(double bilangansatu,double bilangandua){
-//    double a,total=1;
-//    for(a=0;a<bilangandua;a++){
-//        total = operasiPerkalian(total, bilangansatu);// menggunakan fungsi operasiPerkalian dari adinda_dev.h
-//    }
-    return pow(bilangansatu, bilangandua);
+    double a,total=1;
+    for(a=0;a<bilangandua;a++){
+        total = operasiPerkalian(total, bilangansatu);// menggunakan fungsi operasiPerkalian dari adinda_dev.h
+    }
+    return total;
 
 }
 

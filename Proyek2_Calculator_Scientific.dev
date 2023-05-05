@@ -55,16 +55,6 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=body.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
 FileName=main.c
 CompileCpp=0
 Folder=
@@ -74,7 +64,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit3]
+[Unit2]
 FileName=tree.h
 CompileCpp=0
 Folder=
@@ -84,7 +74,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
+[Unit3]
 FileName=header\mahesya_dev.h
 CompileCpp=0
 Folder=
@@ -94,7 +84,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit5]
+[Unit4]
 FileName=header\adinda_dev.h
 CompileCpp=0
 Folder=
@@ -104,9 +94,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-<<<<<<< HEAD
-=======
-[Unit6]
+[Unit5]
 FileName=header\AhmadFauzy_dev.h
 CompileCpp=0
 Folder=
@@ -115,8 +103,10 @@ Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+<<<<<<< HEAD
+=======
 
-[Unit7]
+[Unit6]
 FileName=header\AryaKusumah_dev.h
 CompileCpp=0
 Folder=
@@ -126,7 +116,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit8]
+[Unit7]
 FileName=header\Faisal_dev.h
 CompileCpp=0
 Folder=
@@ -136,7 +126,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
+[Unit8]
 FileName=header\syira_dev.h
 CompileCpp=0
 Folder=
@@ -146,4 +136,14 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
+[Unit9]
+FileName=tree.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 >>>>>>> 958cb35a2d98305fdc1f4ad359e3f94cdd2bd401
+

@@ -4,7 +4,8 @@
 /* Tanggal     : 06-02-2023 */
 
 #ifndef Faisal_dev_H
-#define Faisal_dev_H#include "adinda_dev.h"
+#define Faisal_dev_H
+#include "adinda_dev.h"
 
 #include "AhmadFauzy_dev.h"
 
@@ -17,6 +18,8 @@ lalu mengembalikan hasil operasi pangkat bilangansatu
 dengan pangkat bilangandua.*/
 
 double operasi_pangkat(double bilangansatu, double bilangandua) {
+        /* modul operasi_pangkat adalah modul yang digunakan untuk operasi pangkat dinamis (diluar dari akar pangkat 2)
+    sebagai contoh 1,5 pangkat 4 */
     double a, total = 1;
     for (a = 0; a < bilangandua; a++) {
         total = operasi_perkalian(total, bilangansatu); // memanggil fungsi operasi_perkalian dari adinda_dev.h

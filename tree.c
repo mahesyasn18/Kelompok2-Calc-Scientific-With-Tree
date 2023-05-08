@@ -265,28 +265,31 @@ void push_stack(Stack * First, char item) {
 }
 
 char pop_stack(Stack * First) {
+// modul untuk menghapus top pada stack (pop stack)
     node node_temp;
     node_temp = First -> Head;
     First -> Head = node_temp -> next;
     return node_temp -> oprtr;
-    free(node_temp);
+    free(node_temp); // didealokasi
 }
 
 node create_node_list() {
+// modul untuk membuat node baru pada setiap list yang dibentuk
     node new_node;
 
     new_node = (node) malloc(sizeof(ElmtList));
     if (new_node == NULL) {
         printf("Gagal Alokasi");
     } else {
-        (new_node) -> next = NULL;
+        (new_node) -> next = NULL; // jika node berhasil dibuat
     }
 
-    return new_node;
+    return new_node; // node yang berhasil dibentuk dikembalikan
 }
 
 address create_tree(Queue postfix) {
-    address new_node_tree;
+// modul untuk membuat tree yang berisi ekspresi matematika yang diinputkan
+	address new_node_tree;
     address stack[50];
     node node_list;
     int i, len, top = -1;

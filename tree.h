@@ -20,7 +20,6 @@ typedef struct Node{
 	node next;
 	infotype oprtr;
 	double operand;
-	int isoperator;
 }ElmtList;
 
 typedef struct{

@@ -32,7 +32,7 @@ CompilerSettings=0000000000000000001000000
 <<<<<<< HEAD
 UnitCount=5
 =======
-UnitCount=9
+UnitCount=11
 >>>>>>> 958cb35a2d98305fdc1f4ad359e3f94cdd2bd401
 
 [VersionInfo]
@@ -146,4 +146,24 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 >>>>>>> 958cb35a2d98305fdc1f4ad359e3f94cdd2bd401
+
+[Unit10]
+FileName=kalkulasi.c
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=kalkulasi.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 

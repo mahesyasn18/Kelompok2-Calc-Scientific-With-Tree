@@ -43,6 +43,7 @@ double operasiTangen(double bilangan){
 	double result;
 	if(bilangan==90 || bilangan==270){
 		printf("Not Defined \n");
+		exit(1);
 	} else{
 		result=operasiPembagian(operasiSinus(bilangan),operasiCosinus(bilangan)); //tangen merupakan hasil bagi sin dengan cos
 		return (result);

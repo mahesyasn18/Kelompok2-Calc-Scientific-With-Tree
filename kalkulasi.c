@@ -16,7 +16,7 @@ double kalkulasi(address root) {
         case '+':
             return operasiPenjumlahan(left, right);
         case '-':
-            return operasiPengurangan(left, right);
+            return operasi_pengurangan(left, right);
         case '/':
             return operasiPembagian(left, right);
         case '*':
@@ -108,7 +108,7 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
 
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
-        return operasiFaktorial(angka);
+        return operasi_faktorial(angka);
     } else if (opera == '%') {
         return operasipersen(angka);
     } else if (opera == 'v') {

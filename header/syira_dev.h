@@ -8,20 +8,25 @@
 #include <string.h>
 #include "adinda_dev.h"
 
-double operasiPengurangan(double bilangansatu, double bilangandua) {
-    return bilangansatu - bilangandua;
+double operasi_pengurangan(double bilangansatu, double bilangandua ){
+	//operasi pengurangan dengan menggunakan bilangan satu dan dua, lalu mengembalikan nilai dari pengurangan bilangan satu dan dua
+	return bilangansatu - bilangandua;
 }
 
 double operasiFaktorial(double bilangan) {
     int i;
     double pembagi;
 
-    pembagi = bilangan;
-    for (i = 1; i < pembagi; i++) {
-        bilangan = operasiPerkalian(bilangan, i);
-    }
-
-    return bilangan;
+double operasi_faktorial(double bilangan){
+	int i;
+	double pembagi;
+	
+	pembagi = bilangan; //membuat variable untuk di isikan dengan bilangan yang di masukkan
+	for(i = 1; i < pembagi; i++){
+		bilangan = operasiPerkalian(bilangan, i); // memanggil modul perkalian untuk operasi mengali dan memasukkan ke variable
+	}
+	
+	return bilangan;
 }
 
 #endif

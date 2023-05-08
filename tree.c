@@ -57,7 +57,7 @@ Queue convert_postfix(char * input) {
                 tempOperator = operatorStackTemp.top -> oprtr;
             }
             pop_stack( & operatorStackTemp);
-        } else if (token == 's' || token == 'c' || token == 't' || token == 'a'||token == 'S'||token == 'C'||token == 'T'||token == 'A') {
+        } else if (token == 's' || token == 'c' || token == 't' || token == 'a' || token == 'S' || token == 'C' || token == 'T' || token == 'A') {
             char trigono[7];
             char sudut[20];
             j = 0;
@@ -116,7 +116,7 @@ Queue convert_postfix(char * input) {
                 angka = dequeue_operand( & postfix);
                 hasil = proses_perhitungan_single_operand_single_operator(angka, token);
                 enqueue_operand( & postfix, hasil);
-			}         
+            }
         } else if (token == 'v') {
             char nomor[100];
             double bilangan, bilangan2, hasil;
@@ -130,11 +130,11 @@ Queue convert_postfix(char * input) {
                     }
                 }
                 nomor[top_no] = '\0';
-                
+
                 bilangan = strtod(nomor, NULL);
                 hasil = proses_perhitungan_single_operand_single_operator(bilangan, token);
                 enqueue_operand( & postfix, hasil);
-             
+
             } else {
                 i = i + 2;
                 while (isdigit(input[i])) {
@@ -143,10 +143,10 @@ Queue convert_postfix(char * input) {
                     }
                 }
                 nomor[top_no] = '\0';
-                bilangan2= strtod(nomor, NULL);
+                bilangan2 = strtod(nomor, NULL);
                 bilangan = dequeue_operand( & postfix);
                 enqueue_operand( & postfix, bilangan);
-                enqueue_operand(& postfix, bilangan2);
+                enqueue_operand( & postfix, bilangan2);
                 push_stack( & operatorStackTemp, token);
             }
 
@@ -154,7 +154,6 @@ Queue convert_postfix(char * input) {
             push_stack( & operatorStackTemp, token);
         }
     }
-
 
     while (operatorStackTemp.top != NULL) {
         tempOperator = pop_stack( & operatorStackTemp);
@@ -165,7 +164,7 @@ Queue convert_postfix(char * input) {
 }
 
 int is_operator(infotype oper) {
-    if (oper == '+' || oper == '-' || oper == '*' || oper == '/' || oper == '^' || oper == 'v'|| oper == '&') {
+    if (oper == '+' || oper == '-' || oper == '*' || oper == '/' || oper == '^' || oper == 'v' || oper == '&') {
         return 1;
     }
     return 0;
@@ -237,7 +236,7 @@ int operator_degree(infotype oper) {
         return 1;
     } else if (oper == '*' || oper == '/') {
         return 2;
-    } else if (oper == '^' || oper == 'v'|| oper == '&') {
+    } else if (oper == '^' || oper == 'v' || oper == '&') {
         return 3;
     } else if (oper == '(' || oper == ')') {
         return 0;
@@ -342,5 +341,3 @@ void post_order(address root) {
         }
     }
 }
-
-

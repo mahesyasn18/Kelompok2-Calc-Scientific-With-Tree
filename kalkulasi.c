@@ -9,31 +9,32 @@
 #include "header/Faisal_dev.h"
 
 
-double kalkulasi(address root){
-	if(root->data!='\0'){
-		double left= kalkulasi(root->left);
-		double right= kalkulasi(root->right);
-		if(root->data=='+'){
-			return operasiPenjumlahan(left, right);
-		}else if(root->data=='-'){
-			return operasiPengurangan(left,right);
-		}else if(root->data=='/'){
-			return operasiPembagian(left,right);
-		}else if(root->data=='*'){
-			return operasiPerkalian(left,right);
-		}else if(root->data=='^'){
-			return operasiPangkat(left , right);
-		}
-		else if(root->data=='v'){
-			return operasiAkar(right,left);
-		}
-		else if(root->data=='&'){
-			return operasiModulus(left,right);
-		}
-	}
-	
-	return root->operand;
+double kalkulasi(address root) {
+    if (root->data != '\0') {
+        double left = kalkulasi(root->left);
+        double right = kalkulasi(root->right);
+        switch (root->data) {
+            case '+':
+                return operasiPenjumlahan(left, right);
+            case '-':
+                return operasiPengurangan(left, right);
+            case '/':
+                return operasiPembagian(left, right);
+            case '*':
+                return operasiPerkalian(left, right);
+            case '^':
+                return operasiPangkat(left, right);
+            case 'v':
+                return operasiAkar(right, left);
+            case '&':
+                return operasiModulus(left, right);
+            default:
+                break;
+        }
+    }
+    return root->operand;
 }
+
 
 double proses_perhitungan_trigonometri(double angka, char operator[]){
 	if(strcmp(operator,"sin(")==0){

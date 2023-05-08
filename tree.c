@@ -15,10 +15,9 @@
 Queue convert_postfix(char * input) {
     Queue postfix;
     Stack operatorStackTemp;
-
     postfix.First = NULL;
     postfix.Last = NULL;
-    operatorStackTemp.Head = NULL;
+    operatorStackTemp.top = NULL;
 
     char token, tempOperator;
     int i, temp, j;
@@ -45,17 +44,17 @@ Queue convert_postfix(char * input) {
             enqueue_operand( & postfix, angka);
             i--;
 
-        } else if (is_operator(token) && operatorStackTemp.Head != NULL && operatorStackTemp.Head -> oprtr != '(') {
-            tempOperator = operatorStackTemp.Head -> oprtr;
-            while (operator_degree(token) <= operator_degree(tempOperator) && operatorStackTemp.Head != NULL) {
+        } else if (is_operator(token) && operatorStackTemp.top != NULL && operatorStackTemp.top -> oprtr != '(') {
+            tempOperator = operatorStackTemp.top -> oprtr;
+            while (operator_degree(token) <= operator_degree(tempOperator) && operatorStackTemp.top != NULL) {
                 enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
             }
             push_stack( & operatorStackTemp, token);
         } else if (token == ')') {
-            tempOperator = operatorStackTemp.Head -> oprtr;
+            tempOperator = operatorStackTemp.top -> oprtr;
             while (tempOperator != '(') {
                 enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
-                tempOperator = operatorStackTemp.Head -> oprtr;
+                tempOperator = operatorStackTemp.top -> oprtr;
             }
             pop_stack( & operatorStackTemp);
         } else if (token == 's' || token == 'c' || token == 't' || token == 'a'||token == 'S'||token == 'C'||token == 'T'||token == 'A') {
@@ -157,7 +156,7 @@ Queue convert_postfix(char * input) {
     }
 
 
-    while (operatorStackTemp.Head != NULL) {
+    while (operatorStackTemp.top != NULL) {
         tempOperator = pop_stack( & operatorStackTemp);
         enqueue_operator( & postfix, tempOperator);
     }
@@ -256,20 +255,20 @@ void push_stack(Stack * First, char item) {
     } else {
         new_node -> oprtr = item;
         new_node -> next = NULL;
-        if (First -> Head == NULL) {
-            First -> Head = new_node;
-            First -> Head -> next = NULL;
+        if (First -> top == NULL) {
+            First -> top = new_node;
+            First -> top -> next = NULL;
         } else {
-            new_node -> next = First -> Head;
-            First -> Head = new_node;
+            new_node -> next = First -> top;
+            First -> top = new_node;
         }
     }
 }
 
 char pop_stack(Stack * First) {
     node node_temp;
-    node_temp = First -> Head;
-    First -> Head = node_temp -> next;
+    node_temp = First -> top;
+    First -> top = node_temp -> next;
     return node_temp -> oprtr;
     free(node_temp);
 }
@@ -343,3 +342,5 @@ void post_order(address root) {
         }
     }
 }
+
+

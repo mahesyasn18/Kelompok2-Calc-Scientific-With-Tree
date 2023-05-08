@@ -13,12 +13,11 @@
 #include "kalkulasi.h"
 
 Queue convert_postfix(char * input) {
-    Queue queueOperand;
+    Queue postfix;
     Stack operatorStackTemp;
-
-    queueOperand.First = NULL;
-    queueOperand.Last = NULL;
-    operatorStackTemp.Head = NULL;
+    postfix.First = NULL;
+    postfix.Last = NULL;
+    operatorStackTemp.top = NULL;
 
     char token, tempOperator;
     int i, temp, j;
@@ -42,20 +41,20 @@ Queue convert_postfix(char * input) {
 
             num[j] = '\0';
             angka = strtod(num, NULL);
-            enqueue_operand( & queueOperand, angka);
+            enqueue_operand( & postfix, angka);
             i--;
 
-        } else if (is_operator(token) && operatorStackTemp.Head != NULL && operatorStackTemp.Head -> oprtr != '(') {
-            tempOperator = operatorStackTemp.Head -> oprtr;
-            while (operator_degree(token) <= operator_degree(tempOperator) && operatorStackTemp.Head != NULL) {
-                enqueue_operator( & queueOperand, pop_stack( & operatorStackTemp));
+        } else if (is_operator(token) && operatorStackTemp.top != NULL && operatorStackTemp.top -> oprtr != '(') {
+            tempOperator = operatorStackTemp.top -> oprtr;
+            while (operator_degree(token) <= operator_degree(tempOperator) && operatorStackTemp.top != NULL) {
+                enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
             }
             push_stack( & operatorStackTemp, token);
         } else if (token == ')') {
-            tempOperator = operatorStackTemp.Head -> oprtr;
+            tempOperator = operatorStackTemp.top -> oprtr;
             while (tempOperator != '(') {
-                enqueue_operator( & queueOperand, pop_stack( & operatorStackTemp));
-                tempOperator = operatorStackTemp.Head -> oprtr;
+                enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
+                tempOperator = operatorStackTemp.top -> oprtr;
             }
             pop_stack( & operatorStackTemp);
         } else if (token == 's' || token == 'c' || token == 't' || token == 'a'||token == 'S'||token == 'C'||token == 'T'||token == 'A') {
@@ -75,7 +74,7 @@ Queue convert_postfix(char * input) {
             sudut[x] = '\0';
             angka = strtod(sudut, NULL);
             hasil = proses_perhitungan_trigonometri(angka, trigono);
-            enqueue_operand( & queueOperand, hasil);
+            enqueue_operand( & postfix, hasil);
         } else if (token == 'l' || token == 'L') {
             char log[10];
             char Num[100];
@@ -83,7 +82,7 @@ Queue convert_postfix(char * input) {
             float a, hasil;
             int j = 0, x = 0;
             if (isdigit(input[i - 1])) {
-                a = dequeue_operand( & queueOperand);
+                a = dequeue_operand( & postfix);
                 while (input[i] != ')') {
                     if (isdigit(input[i]) || input[i] == '.') {
                         Num[j++] = input[i];
@@ -95,7 +94,7 @@ Queue convert_postfix(char * input) {
                 Num[j] = '\0';
                 angka = strtof(Num, NULL);
                 hasil = proses_perhitungan_logaritma(angka, a, log);
-                enqueue_operand( & queueOperand, hasil);
+                enqueue_operand( & postfix, hasil);
             } else {
                 while (input[i] != ')') {
                     if (isdigit(input[i]) || input[i] == '.') {
@@ -108,15 +107,15 @@ Queue convert_postfix(char * input) {
                 Num[j] = '\0';
                 angka = strtof(Num, NULL);
                 hasil = proses_perhitungan_single_operand_long_operator(angka, log);
-                enqueue_operand( & queueOperand, hasil);
+                enqueue_operand( & postfix, hasil);
             }
 
         } else if (token == '!' || token == '%') {
             double angka, hasil;
             if (isdigit(input[i - 1])) {
-                angka = dequeue_operand( & queueOperand);
+                angka = dequeue_operand( & postfix);
                 hasil = proses_perhitungan_single_operand_single_operator(angka, token);
-                enqueue_operand( & queueOperand, hasil);
+                enqueue_operand( & postfix, hasil);
 			}         
         } else if (token == 'v') {
             char nomor[100];
@@ -134,7 +133,7 @@ Queue convert_postfix(char * input) {
                 
                 bilangan = strtod(nomor, NULL);
                 hasil = proses_perhitungan_single_operand_single_operator(bilangan, token);
-                enqueue_operand( & queueOperand, hasil);
+                enqueue_operand( & postfix, hasil);
              
             } else {
                 i = i + 2;
@@ -145,9 +144,9 @@ Queue convert_postfix(char * input) {
                 }
                 nomor[top_no] = '\0';
                 bilangan2= strtod(nomor, NULL);
-                bilangan = dequeue_operand( & queueOperand);
-                enqueue_operand( & queueOperand, bilangan);
-                enqueue_operand(& queueOperand, bilangan2);
+                bilangan = dequeue_operand( & postfix);
+                enqueue_operand( & postfix, bilangan);
+                enqueue_operand(& postfix, bilangan2);
                 push_stack( & operatorStackTemp, token);
             }
 
@@ -155,12 +154,14 @@ Queue convert_postfix(char * input) {
             push_stack( & operatorStackTemp, token);
         }
     }
-    while (operatorStackTemp.Head != NULL) {
+
+
+    while (operatorStackTemp.top != NULL) {
         tempOperator = pop_stack( & operatorStackTemp);
-        enqueue_operator( & queueOperand, tempOperator);
+        enqueue_operator( & postfix, tempOperator);
     }
 
-    return queueOperand;
+    return postfix;
 }
 
 int is_operator(infotype oper) {
@@ -200,11 +201,11 @@ void enqueue_operator(Queue * Postfix, char item) {
     }
 }
 
-double dequeue_operand(Queue * queueOperand) {
+double dequeue_operand(Queue * postfix) {
     double found;
     node First, Last, Throw;
-    First = queueOperand -> First;
-    Last = queueOperand -> Last;
+    First = postfix -> First;
+    Last = postfix -> Last;
     if (First == NULL) {
         printf("Queue Empty");
 
@@ -215,15 +216,15 @@ double dequeue_operand(Queue * queueOperand) {
             }
             Throw = Last;
             found = Last -> operand;
-            queueOperand -> Last = First;
-            queueOperand -> Last -> next = NULL;
+            postfix -> Last = First;
+            postfix -> Last -> next = NULL;
             free(Throw);
             return found;
         } else {
             Throw = Last;
             found = Last -> operand;
-            queueOperand -> Last = NULL;
-            queueOperand -> First = NULL;
+            postfix -> Last = NULL;
+            postfix -> First = NULL;
             free(Throw);
             return found;
         }
@@ -254,12 +255,12 @@ void push_stack(Stack * First, char item) {
     } else {
         new_node -> oprtr = item;
         new_node -> next = NULL;
-        if (First -> Head == NULL) {
-            First -> Head = new_node;
-            First -> Head -> next = NULL;
+        if (First -> top == NULL) {
+            First -> top = new_node;
+            First -> top -> next = NULL;
         } else {
-            new_node -> next = First -> Head;
-            First -> Head = new_node;
+            new_node -> next = First -> top;
+            First -> top = new_node;
         }
     }
 }
@@ -267,8 +268,8 @@ void push_stack(Stack * First, char item) {
 char pop_stack(Stack * First) {
 // modul untuk menghapus top pada stack (pop stack)
     node node_temp;
-    node_temp = First -> Head;
-    First -> Head = node_temp -> next;
+    node_temp = First -> top;
+    First -> top = node_temp -> next;
     return node_temp -> oprtr;
     free(node_temp); // didealokasi
 }
@@ -291,25 +292,25 @@ address create_tree(Queue postfix) {
 // modul untuk membuat tree yang berisi ekspresi matematika yang diinputkan
 	address new_node_tree;
     address stack[50];
-    node node_list;
+    node temp_postfix;
     int i, len, top = -1;
     infotype opera;
     double operand;
 
-    node_list = postfix.First;
+    temp_postfix = postfix.First;
 
-    while (node_list != NULL) {
-        if (node_list -> oprtr != '\0') {
-            opera = node_list -> oprtr;
+    while (temp_postfix != NULL) {
+        if (temp_postfix -> oprtr != '\0') {
+            opera = temp_postfix -> oprtr;
             new_node_tree = create_node_operator(opera);
             right(new_node_tree) = stack[top--];
             left(new_node_tree) = stack[top--];
         } else {
-            operand = node_list -> operand;
+            operand = temp_postfix -> operand;
             new_node_tree = create_node_operand(operand);
         }
         stack[++top] = new_node_tree;
-        node_list = node_list -> next;
+        temp_postfix = temp_postfix -> next;
     }
     return (stack[0]);
 }
@@ -344,3 +345,5 @@ void post_order(address root) {
         }
     }
 }
+
+

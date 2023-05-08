@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
 		
 		printf("\nhasilnya adalah %g\n",hasil);
 		system("pause");
+		free(root);
 	}
 	
 	

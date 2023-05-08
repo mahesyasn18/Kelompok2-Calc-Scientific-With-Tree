@@ -23,7 +23,7 @@ typedef struct Node{
 }ElmtList;
 
 typedef struct{
-node Head;
+node top;
 }Stack;
 
 typedef struct {
@@ -45,6 +45,7 @@ address create_node_operand(double input);
 address create_node_operator(char input);
 void post_order(address root);
 double dequeue_operand(Queue *queueOperand);
+
 
 
 

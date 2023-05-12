@@ -13,9 +13,9 @@ double operasi_pengurangan(double bilangansatu, double bilangandua ){
 	return bilangansatu - bilangandua;
 }
 
-double operasiFaktorial(double bilangan) {
-    int i;
-    double pembagi;
+//double operasiFaktorial(double bilangan) {
+//    int i;
+//    double pembagi;
 
 double operasi_faktorial(double bilangan){
 	int i;
@@ -23,7 +23,7 @@ double operasi_faktorial(double bilangan){
 	
 	pembagi = bilangan; //membuat variable untuk di isikan dengan bilangan yang di masukkan
 	for(i = 1; i < pembagi; i++){
-		bilangan = operasiPerkalian(bilangan, i); // memanggil modul perkalian untuk operasi mengali dan memasukkan ke variable
+		bilangan = operasi_perkalian(bilangan, i); // memanggil modul perkalian untuk operasi mengali dan memasukkan ke variable
 	}
 	
 	return bilangan;

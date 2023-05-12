@@ -1,9 +1,10 @@
 #ifndef AhmadFauzy_dev_h
-#define AhmadFauzy_dev_h#include<stdio.h>
+#define AhmadFauzy_dev_h
+#include<stdio.h>
 
 #define delta 0.000001
 
-double operasiPembagian(double bilangansatu, double bilangandua) {
+double operasi_pembagian(double bilangansatu, double bilangandua) {
     return (bilangansatu / bilangandua);
 }
 

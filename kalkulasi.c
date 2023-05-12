@@ -14,15 +14,15 @@ double kalkulasi(address root) {
         double right = kalkulasi(root -> right);
         switch (root -> data) {
         case '+':
-            return operasiPenjumlahan(left, right);
+            return operasi_penjumlahan(left, right);
         case '-':
             return operasi_pengurangan(left, right);
         case '/':
-            return operasiPembagian(left, right);
+            return operasi_pembagian(left, right);
         case '*':
-            return operasiPerkalian(left, right);
+            return operasi_perkalian(left, right);
         case '^':
-            return operasiPangkat(left, right);
+            return operasi_pangkat(left, right);
         case 'v':
             return operasi_akar(right, left);
         case '&':
@@ -73,7 +73,7 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
         } else if (strcmp(operator, "COT") == 0 || strcmp(operator, "COT(") == 0 || strcmp(operator, "cot") == 0) {
             printf("Error, operator yang anda masukkan: %s, seharusnya COT(...), contoh cot(0.5)", operator);
         } else {
-            printf("Operator Tidak Diketahui sin: %s", operator);
+            printf("Operator Tidak Diketahui: %s", operator);
         }
         exit(1);
     }
@@ -110,7 +110,7 @@ double proses_perhitungan_single_operand_single_operator(double angka, char oper
     if (opera == '!') {
         return operasi_faktorial(angka);
     } else if (opera == '%') {
-        return operasipersen(angka);
+        return operasi_persen(angka);
     } else if (opera == 'v') {
         return operasi_akar_dua(angka);
     } else {

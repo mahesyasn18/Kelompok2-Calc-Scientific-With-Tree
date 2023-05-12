@@ -2,7 +2,7 @@
 #define AryaKusumah_dev_H
 
 
-double operasiPenjumlahan(double bilangansatu, double bilangandua){
+double operasi_penjumlahan(double bilangansatu, double bilangandua){
 	return bilangansatu + bilangandua; 
 }
 

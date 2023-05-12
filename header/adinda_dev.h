@@ -4,10 +4,11 @@
 
 #ifndef adinda_dev_H
 #define adinda_dev_H
-#define PI 3.14159265358979323846#include "AhmadFauzy_dev.h"
+#define PI 3.14159265358979323846
+#include "AhmadFauzy_dev.h"
 
 
-double operasiPerkalian(double bilangansatu, double bilangandua) {
+double operasi_perkalian(double bilangansatu, double bilangandua) {
     return bilangansatu * bilangandua;
 }
 
@@ -45,29 +46,20 @@ double operasiTangen(double bilangan){
 		printf("Not Defined \n");
 		exit(1);
 	} else{
-		result=operasiPembagian(operasiSinus(bilangan),operasiCosinus(bilangan)); //tangen merupakan hasil bagi sin dengan cos
+		result=operasi_pembagian(operasiSinus(bilangan),operasiCosinus(bilangan)); //tangen merupakan hasil bagi sin dengan cos
 		return (result);
 	}
 	
 }
 
-double operasiCosecan(double bilangan){
-	double result;
-	if(bilangan==0 || bilangan==180 || bilangan==360){
-		printf("Not Defined \n");
-	} else{
-		result=operasiPembagian(1,operasiSinus(bilangan)); // cosecan merupakan satu per dari sinus
-		return (result);
-	}
 
-}
 
 double operasiCosecan(double bilangan) {
     double result;
     if (bilangan == 0 || bilangan == 180 || bilangan == 360) {
         printf("Not Defined \n");
     } else {
-        result = operasiPembagian(1, operasiSinus(bilangan)); // cosecan merupakan satu per dari sinus
+        result = operasi_pembagian(1, operasiSinus(bilangan)); // cosecan merupakan satu per dari sinus
         return (result);
     }
 
@@ -78,7 +70,7 @@ double operasiSecan(double bilangan) {
     if (bilangan == 90 || bilangan == 270) {
         printf("Not Defined \n");
     } else {
-        result = operasiPembagian(1, operasiCosinus(bilangan)); //tangen merupakan hasil bagi sin dengan cos
+        result = operasi_pembagian(1, operasiCosinus(bilangan)); //tangen merupakan hasil bagi sin dengan cos
         return (result);
     }
 }
@@ -88,7 +80,7 @@ double operasiCotangen(double bilangan) {
     if (bilangan == 0 || bilangan == 180 || bilangan == 360) {
         printf("Not Defined \n");
     } else {
-        result = operasiPembagian(1, operasiTangen(bilangan)); // cosecan merupakan satu per dari sinus
+        result = operasi_pembagian(1, operasiTangen(bilangan)); // cosecan merupakan satu per dari sinus
         return (result);
     }
 }

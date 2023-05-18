@@ -24,7 +24,7 @@ double kalkulasi(address root) {
         case '^':
             return operasi_pangkat(left, right);
         case 'v':
-            return operasi_akar(right, left);
+            return operasi_akar_dinamis(right, left);
         case '&':
             return operasiModulus(left, right);
         default:

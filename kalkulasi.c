@@ -26,7 +26,7 @@ double kalkulasi(address root) {
         case 'v':/*operasi untuk modul akar dinamis. (contoh 3v12) */
             return operasi_akar_dinamis(right, left);
         case '&': /*operasi untuk modulus karena % sudah digunakan oleh operasi persen. (contoh 4&2) */
-            return operasiModulus(left, right);
+            return operasi_modulus(left, right);
         default:
             break;
         }

@@ -1,3 +1,15 @@
+/*
+dibuat oleh : Mahesya Setia Nugraha
+Deskripsi : Memuat proses perhitungan:
+1. operasi akar dinamis
+2. operasi akar dua
+3. operasi asin
+4. operasi acos
+5. operasi atan
+
+*/
+
+
 #ifndef mahesya_dev_H
 #define mahesya_dev_H
 
@@ -57,7 +69,7 @@ double operasi_akar_dua(double bilangan) {
 
 /* Fungsi Operasi Asin */
 double operasi_asin(double bilangan) {
-	/* referensi: https://stackoverflow.com/questions/20196000/own-asin-function-with-taylor-series-not-accurate*/
+	/* referensi: https://stackoverflow.com/questions/20196000/own-asin-function-with-taylor-series-not-accurate */
 	if (bilangan > 1.0 || bilangan < -1.0) {
         printf("Not Define\n"); /* nilai yang tidak valid */
         return 0;

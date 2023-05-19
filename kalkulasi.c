@@ -7,36 +7,37 @@
 #include "header/AhmadFauzy_dev.h"
 #include "header/Faisal_dev.h"
 
-
+/*Proses perhitungan aritmatika dan operasi yang memerlukan dua operand terhadap satu operator*/
 double kalkulasi(address root) {
     if (root -> data != '\0') {
-        double left = kalkulasi(root -> left);
-        double right = kalkulasi(root -> right);
+        double left = kalkulasi(root->left);
+        double right = kalkulasi(root->right);
         switch (root -> data) {
-        case '+':
+        case '+': /*operasi untuk modul penjumlahan */
             return operasi_penjumlahan(left, right);
-        case '-':
+        case '-':/*operasi untuk modul pengurangan */
             return operasi_pengurangan(left, right);
-        case '/':
+        case '/':/*operasi untuk modul pembagian */
             return operasi_pembagian(left, right);
-        case '*':
+        case '*':/*operasi untuk modul perkalian. */
             return operasi_perkalian(left, right);
-        case '^':
+        case '^':/*operasi untuk modul pangkat dinamis. (contoh 1.5^3) */
             return operasi_pangkat(left, right);
-        case 'v':
+        case 'v':/*operasi untuk modul akar dinamis. (contoh 3v12) */
             return operasi_akar_dinamis(right, left);
-        case '&':
+        case '&': /*operasi untuk modulus karena % sudah digunakan oleh operasi persen. (contoh 4&2) */
             return operasiModulus(left, right);
         default:
             break;
         }
     }
-    return root -> operand;
+    return root->operand;
 }
 
+/* Proses perhitungan trigonometri */
 double proses_perhitungan_trigonometri(double angka, char operator[]) {
     if (strcmp(operator, "sin(") == 0) {
-        return operasiSinus(angka);
+        return operasiSinus(angka); 
     } else if (strcmp(operator, "cos(") == 0) {
         return operasiCosinus(angka);
     } else if (strcmp(operator, "tan(") == 0) {
@@ -79,6 +80,7 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
     }
 }
 
+/* Proses perhitungan logaritma */
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
         return operasiLogaritma(angka2, angka1);
@@ -93,6 +95,7 @@ double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) 
     }
 }
 
+/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator */
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
         return LogaritmaBasisSepuluh(angka);
@@ -106,6 +109,8 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
     }
 }
 
+
+/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan char operator */
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
         return operasi_faktorial(angka);

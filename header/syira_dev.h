@@ -8,14 +8,11 @@
 #include <string.h>
 #include "adinda_dev.h"
 
-double operasi_pengurangan(double bilangansatu, double bilangandua ){
+double operasi_pengurangan(double bilangansatu, double bilangandua){
 	//operasi pengurangan dengan menggunakan bilangan satu dan dua, lalu mengembalikan nilai dari pengurangan bilangan satu dan dua
 	return bilangansatu - bilangandua;
 }
 
-//double operasiFaktorial(double bilangan) {
-//    int i;
-//    double pembagi;
 
 double operasi_faktorial(double bilangan){
 	int i;

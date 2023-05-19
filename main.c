@@ -9,26 +9,37 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 int main(int argc, char * argv[]) {
-    double hasil;
-    char input[100];
-    address root;
-    Queue postfix;
-
+    double hasil;  
+    char input[100];  
+    address root;  
+    Queue postfix;  
+	/* Looping tak terbatas */
     for (;;) {
         system("cls");
-        printf("Masukkan Ekspresi:");
-        scanf("%s", & input);
+		
+		/* Input ekspresi matematika dalam bentuk infix */  
+        printf("Masukkan Ekspresi:");  
+        scanf("%s", &input);  
 
-        postfix = convert_postfix(input);
+		/* konversi dari infix ke postfix */
+        postfix = convert_postfix(input);  
+        
+        /* Membuat tree dari ekspresi postfix */
         root = create_tree(postfix);
-        hasil = kalkulasi(root);
+		
+		/* Menghitung hasil */  
+        hasil = kalkulasi(root); 
 
-        printf("PostOrder: ");
-        post_order(root);
+		/* Menampilkan hasil post order dari tree */
+        printf("PostOrder: ");  
+        post_order(root);  
 
+		/* Menampilkan hasil kalkulasi */
         printf("\nhasilnya adalah %g\n", hasil);
-        system("pause");
-        free(root);
+        system("pause"); 
+        
+        /* Membebaskan memori yang dialokasikan untuk tree*/
+        free(root); 
     }
 
     return 0;

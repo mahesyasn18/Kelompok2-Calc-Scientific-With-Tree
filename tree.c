@@ -1,15 +1,17 @@
+/*
+dibuat oleh : Adinda Raisa Azzahra & Mahesya Setia Nugraha
+referensi logika: http://bwahyudi.staff.gunadarma.ac.id/Downloads/files/22353/INFIX1.pdf
+file : tree.c
+Deskripsi : Memuat proses konversi infix ke postfix hingga pembuatan binary tree dari hasil postfix
+
+*/
+
 #include <stdio.h>
-
 #include <stdlib.h>
-
 #include <string.h>
-
 #include <math.h>
-
 #include <ctype.h>
-
 #include "tree.h"
-
 #include "kalkulasi.h"
 
 Queue convert_postfix(char * input) {
@@ -23,28 +25,39 @@ Queue convert_postfix(char * input) {
     int i, temp, j;
 
     double angka;
+    /* melakukan perulangan sepanjang input */
     for (i = 0; i < strlen(input); i++) {
+        /* sebuah operand atau operator disimpan dalam variable token */
         token = input[i];
-        if (isdigit(token) || (token == '-' && is_operator(input[i - 1])) || (token == '-' && i == 0) || (token == '-' && input[i - 1] == '(')) {
-            char num[strlen(input)], kurung;
-            j = 0;
 
+        /* pengecekan token apakah digit atau bukan dan juga pengecekan untuk nilai token negatif */
+        if (isdigit(token) || (token == '-' && is_operator(input[i - 1])) || (token == '-' && i == 0) || (token == '-' && input[i - 1] == '(')) {
+            char num[strlen(input)];
+            j = 0;
+            
+            /* jika token merupakan - (lambang negatif) maka masukan pada array num */
             if (token == '-') {
-                num[j++] = token;
+                num[j++] = token; 
                 i++;
             }
 
+            //melakukan perulangan inputan berikutnya hingga inputan bukan sebuah digit
             while (isdigit(input[i]) || input[i] == '.') {
                 num[j++] = input[i];
                 i++;
             }
 
+
             num[j] = '\0';
+            //mengubah char num menjadi angka menggunakan strtod (string to double)
             angka = strtod(num, NULL);
+
+            //memasukan angka ke queue postfix
             enqueue_operand( & postfix, angka);
             i--;
-
+          /* proses untuk menentukan apakah token sebuah character dan subvar topnya tidak kosong dan operatornya bukan '(' */
         } else if (is_operator(token) && operatorStackTemp.top != NULL && operatorStackTemp.top -> oprtr != '(') {
+            /* tempOperator diisi dengan nilai dari subvar oprtr yang ditunjuk oleh top dari stack */
             tempOperator = operatorStackTemp.top -> oprtr;
             while (operator_degree(token) <= operator_degree(tempOperator) && operatorStackTemp.top != NULL) {
                 enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
@@ -57,22 +70,36 @@ Queue convert_postfix(char * input) {
                 tempOperator = operatorStackTemp.top -> oprtr;
             }
             pop_stack( & operatorStackTemp);
+
+          /* proses untuk menetukan operator trigonometri */
+          /* operasi yang tersedia (sin, cos, tan, asin, acos, atan, cosecan, secan, cotangen) */
+             
         } else if (token == 's' || token == 'c' || token == 't' || token == 'a' || token == 'S' || token == 'C' || token == 'T' || token == 'A') {
             char trigono[7];
             char sudut[20];
             j = 0;
             int x = 0;
             double hasil;
+            /* melakukan perulangan pake input hingga menemukan ')' */
             while (input[i] != ')') {
+                /* jika tidak terdapat ')' maka akan muncul message error*/
+                if (input[i] == '\0') {
+                    printf("Error: Tidak ditemukan karakter penutup ')'\n");
+                    exit(1) ; 
+                }
+
+                /* jika input merupakan digit atau titik */
                 if (isdigit(input[i]) || input[i] == '.') {
-                    sudut[x++] = input[i];
+                    sudut[x++] = input[i]; /* maka masukan pada array of char sudut */
                 } else {
-                    trigono[j++] = input[i];
+                    trigono[j++] = input[i]; /* maka masukan pada array of char trigono */
                 }
                 i++;
             }
             sudut[x] = '\0';
+            /* konversi nilai sudut dalam bentuk char ke decimal dengan fungsi strtod */
             angka = strtod(sudut, NULL);
+            /* menghitung sebuah operasi trigonomeri */
             hasil = proses_perhitungan_trigonometri(angka, trigono);
             enqueue_operand( & postfix, hasil);
         } else if (token == 'l' || token == 'L') {

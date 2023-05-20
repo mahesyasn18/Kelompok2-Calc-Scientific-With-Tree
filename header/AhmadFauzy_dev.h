@@ -7,7 +7,7 @@
 #ifndef AhmadFauzy_dev_h
 #define AhmadFauzy_dev_h
 #include "AryaKusumah_dev.h"
-#include "Faisal_dev.h"
+#include "math.h"
 #include<stdio.h>
 #define delta 0.000001
 
@@ -34,9 +34,10 @@ double operasi_logaritma(double bilangansatu, double bilangandua){
                 Hasil =operasi_penjumlahan(Hasil, 1);/*setiap looping hasil bertambah 1*/ 
         }
         if(HasilPembagian != 1){
-        	do{
-        		Hasil = operasi_pangkat(HasilPembagian, delta);
-			}while(Hasil>bilangandua && Hasil!=bilangandua);
+        	while(pow(bilangansatu,Hasil) <= bilangandua){
+        		Hasil = pow(sisa, temp);
+        		temp+=0.0001;
+			}
 		}
     }
     return Hasil;
@@ -46,6 +47,7 @@ double operasi_logaritma_basis_sepuluh(double bilangansatu) {
 	/*kamus data lokal*/
     double HasilPembagian = bilangansatu;
     double Hasil = 0;
+    double temp;
 	/*algoritma*/
     if (bilangansatu <= 0) {
         printf("Invalid input\n");
@@ -56,9 +58,10 @@ double operasi_logaritma_basis_sepuluh(double bilangansatu) {
             Hasil =operasi_penjumlahan(Hasil, 1);
         }
         if (HasilPembagian != 1) {
-            do{
-        		Hasil = operasi_pangkat(HasilPembagian, delta);
-			}while(Hasil>bilangansatu && Hasil!=bilangansatu);
+        	while(pow(10,Hasil) <= bilangansatu){
+        		Hasil = pow(sisa, temp);
+        		temp+=0.0001;
+			}
         }
     }
     return Hasil;

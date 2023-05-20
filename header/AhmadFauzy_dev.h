@@ -36,7 +36,7 @@ double operasi_logaritma(double bilangansatu, double bilangandua){
         if(HasilPembagian != 1){
         	while(pow(bilangansatu,Hasil) <= bilangandua){
         		Hasil = pow(sisa, temp);
-        		temp+=0.0001;
+        		temp=operasi_penjumlahan(temp, delta);
 			}
 		}
     }
@@ -59,8 +59,8 @@ double operasi_logaritma_basis_sepuluh(double bilangansatu) {
         }
         if (HasilPembagian != 1) {
         	while(pow(10,Hasil) <= bilangansatu){
-        		Hasil = pow(sisa, temp);
-        		temp+=0.0001;
+        		Hasil = pow(HasilPembagian, temp);
+        		temp=operasi_penjumlahan(temp, delta);
 			}
         }
     }

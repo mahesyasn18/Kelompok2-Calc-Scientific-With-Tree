@@ -79,7 +79,7 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
 /* Proses perhitungan logaritma */
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
-        return operasiLogaritma(angka2, angka1);
+        return operasi_logaritma(angka2, angka1);
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
             printf("Error, Operator Tidak Diketahui: %s, seharusnya nlog(..), contoh 4log(16)", opera);
@@ -94,7 +94,7 @@ double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) 
 /* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator */
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
-        return LogaritmaBasisSepuluh(angka);
+        return operasi_logaritma_basis_sepuluh(angka);
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
             printf("Error, Operator Tidak Diketahui: %s, seharusnya log(..), contoh log(10)", opera);

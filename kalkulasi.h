@@ -15,4 +15,5 @@ double proses_perhitungan_trigonometri(double angka, char operator[]);
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]);
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]);
 double proses_perhitungan_single_operand_single_operator(double angka, char opera);
+double proses_perhitungan_double_operand_single_operator(double angka1, double angka2, char opera);
 #endif

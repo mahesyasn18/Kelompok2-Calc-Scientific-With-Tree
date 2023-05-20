@@ -3,8 +3,6 @@
 #include "header/adinda_dev.h"
 #include "header/AhmadFauzy_dev.h"
 #include "header/syira_dev.h"
-#include "header/adinda_dev.h"
-#include "header/AhmadFauzy_dev.h"
 #include "header/Faisal_dev.h"
 
 /*Proses perhitungan aritmatika dan operasi yang memerlukan dua operand terhadap satu operator*/
@@ -23,8 +21,6 @@ double kalkulasi(address root) {
             return operasi_perkalian(left, right);
         case '^':/*operasi untuk modul pangkat dinamis. (contoh 1.5^3) */
             return operasi_pangkat(left, right);
-        case 'v':/*operasi untuk modul akar dinamis. (contoh 3v12) */
-            return operasi_akar_dinamis(right, left);
         case '&': /*operasi untuk modulus karena % sudah digunakan oleh operasi persen. (contoh 4&2) */
             return operasi_modulus(left, right);
         default:
@@ -110,6 +106,7 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
 }
 
 
+
 /* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan char operator */
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
@@ -121,5 +118,14 @@ double proses_perhitungan_single_operand_single_operator(double angka, char oper
     } else {
         printf("Operator Tidak Diketahui: %c", opera);
         return -1; // return nilai error
+    }
+}
+
+double proses_perhitungan_double_operand_single_operator(double angka1, double angka2, char opera) {
+    if (opera == 'v') {
+        return operasi_akar_dinamis(angka2, angka1);
+    } else {
+        printf("Error, Operator Tidak Diketahui: %s", opera);
+        exit(1);
     }
 }

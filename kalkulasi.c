@@ -3,8 +3,6 @@
 #include "header/adinda_dev.h"
 #include "header/AhmadFauzy_dev.h"
 #include "header/syira_dev.h"
-#include "header/adinda_dev.h"
-#include "header/AhmadFauzy_dev.h"
 #include "header/Faisal_dev.h"
 
 /*Proses perhitungan aritmatika dan operasi yang memerlukan dua operand terhadap satu operator*/
@@ -23,8 +21,6 @@ double kalkulasi(address root) {
             return operasi_perkalian(left, right);
         case '^':/*operasi untuk modul pangkat dinamis. (contoh 1.5^3) */
             return operasi_pangkat(left, right);
-        case 'v':/*operasi untuk modul akar dinamis. (contoh 3v12) */
-            return operasi_akar_dinamis(right, left);
         case '&': /*operasi untuk modulus karena % sudah digunakan oleh operasi persen. (contoh 4&2) */
             return operasi_modulus(left, right);
         default:
@@ -36,7 +32,7 @@ double kalkulasi(address root) {
 
 /* Proses perhitungan trigonometri */
 double proses_perhitungan_trigonometri(double angka, char operator[]) {
-    if (strcmp(operator, "sin(") == 0) {
+    if (strcmp(operator, "sin(") == 0) { /* operator == "sin(" */
         return operasiSinus(angka); 
     } else if (strcmp(operator, "cos(") == 0) {
         return operasiCosinus(angka);
@@ -83,7 +79,7 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
 /* Proses perhitungan logaritma */
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
-        return operasiLogaritma(angka2, angka1);
+        return operasi_logaritma(angka2, angka1);
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
             printf("Error, Operator Tidak Diketahui: %s, seharusnya nlog(..), contoh 4log(16)", opera);
@@ -98,7 +94,7 @@ double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) 
 /* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator */
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
-        return LogaritmaBasisSepuluh(angka);
+        return operasi_logaritma_basis_sepuluh(angka);
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
             printf("Error, Operator Tidak Diketahui: %s, seharusnya log(..), contoh log(10)", opera);
@@ -110,7 +106,8 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
 }
 
 
-/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan char operator */
+
+/* Proses perhitungan untuk operasi yang memerlukan 1 operand dan satu char operator */
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
         return operasi_faktorial(angka);
@@ -121,5 +118,15 @@ double proses_perhitungan_single_operand_single_operator(double angka, char oper
     } else {
         printf("Operator Tidak Diketahui: %c", opera);
         return -1; // return nilai error
+    }
+}
+
+/* Proses perhitungan untuk operasi yang memiliki dua buah operand dan satu char operator*/
+double proses_perhitungan_double_operand_single_operator(double angka1, double angka2, char opera) {
+    if (opera == 'v') {
+        return operasi_akar_dinamis(angka2, angka1);
+    } else {
+        printf("Error, Operator Tidak Diketahui: %s", opera);
+        exit(1);
     }
 }

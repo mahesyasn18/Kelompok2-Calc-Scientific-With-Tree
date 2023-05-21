@@ -32,7 +32,7 @@ double kalkulasi(address root) {
 
 /* Proses perhitungan trigonometri */
 double proses_perhitungan_trigonometri(double angka, char operator[]) {
-    if (strcmp(operator, "sin(") == 0) {
+    if (strcmp(operator, "sin(") == 0) { /* operator == "sin(" */
         return operasiSinus(angka); 
     } else if (strcmp(operator, "cos(") == 0) {
         return operasiCosinus(angka);
@@ -107,7 +107,7 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
 
 
 
-/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan char operator */
+/* Proses perhitungan untuk operasi yang memerlukan 1 operand dan satu char operator */
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
         return operasi_faktorial(angka);
@@ -121,6 +121,7 @@ double proses_perhitungan_single_operand_single_operator(double angka, char oper
     }
 }
 
+/* Proses perhitungan untuk operasi yang memiliki dua buah operand dan satu char operator*/
 double proses_perhitungan_double_operand_single_operator(double angka1, double angka2, char opera) {
     if (opera == 'v') {
         return operasi_akar_dinamis(angka2, angka1);

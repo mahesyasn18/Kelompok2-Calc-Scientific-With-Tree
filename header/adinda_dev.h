@@ -1,5 +1,8 @@
 /*
-dibuat oleh : Adinda Raisa Az-zahra
+Dibuat oleh : Adinda Raisa Az-zahra
+Referensi : https://jagostat.com/kalkulus2/deret-taylor-dan-maclaurin
+https://stackoverflow.com/questions/40808804/implementing-taylor-series-for-sine-and-cosine-in-c
+
 Deskripsi : Memuat proses perhitungan:
 1. operasi perkalian
 2. operasi sinus

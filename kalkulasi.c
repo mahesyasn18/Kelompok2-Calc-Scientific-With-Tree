@@ -31,6 +31,7 @@ double kalkulasi(address root) {
 }
 
 /* Proses perhitungan trigonometri */
+/* Modul untuk identifikasi proses trigonometri dan validasi*/
 double proses_perhitungan_trigonometri(double angka, char operator[]) {
     if (strcmp(operator, "sin(") == 0) { /* operator == "sin(" */
         return operasiSinus(angka); 
@@ -77,9 +78,10 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
 }
 
 /* Proses perhitungan logaritma */
+/* Modul untuk validasi penulisan operasi logaritma */
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
-        return operasi_logaritma(angka2, angka1);
+        return operasi_logaritma(angka2, angka1); /* Jika sesuai maka akan masuk ke modul operasi_logaritma */
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
             printf("Error, Operator Tidak Diketahui: %s, seharusnya nlog(..), contoh 4log(16)", opera);
@@ -91,7 +93,8 @@ double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) 
     }
 }
 
-/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator */
+/* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator dan 
+dan validasi penulisannya*/
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]) {
     if (strcmp(opera, "log(") == 0) {
         return operasi_logaritma_basis_sepuluh(angka);
@@ -107,7 +110,8 @@ double proses_perhitungan_single_operand_long_operator(double angka, char opera[
 
 
 
-/* Proses perhitungan untuk operasi yang memerlukan 1 operand dan satu char operator */
+/* Proses perhitungan untuk operasi yang memerlukan 1 operand dan satu char operator 
+dan validasi penulisannya */
 double proses_perhitungan_single_operand_single_operator(double angka, char opera) {
     if (opera == '!') {
         return operasi_faktorial(angka);
@@ -121,7 +125,8 @@ double proses_perhitungan_single_operand_single_operator(double angka, char oper
     }
 }
 
-/* Proses perhitungan untuk operasi yang memiliki dua buah operand dan satu char operator*/
+/* Proses perhitungan untuk operasi yang memiliki dua buah operand dan satu char operator
+dan validasi penulisannya*/
 double proses_perhitungan_double_operand_single_operator(double angka1, double angka2, char opera) {
     if (opera == 'v') {
         return operasi_akar_dinamis(angka2, angka1);

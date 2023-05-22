@@ -11,8 +11,6 @@ deskripsi : Memuat proses konversi infix ke postfix hingga pembuatan binary tree
 
 #include <string.h>
 
-#include <math.h>
-
 #include <ctype.h>
 
 #include "tree.h"

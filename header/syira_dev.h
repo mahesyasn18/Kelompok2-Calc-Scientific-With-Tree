@@ -11,9 +11,6 @@ Deskripsi : Memuat proses perhitungan:
 
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
-#include <math.h>
-#include <string.h>
 #include "adinda_dev.h"
 
 double operasi_pengurangan(double bilangansatu, double bilangandua){

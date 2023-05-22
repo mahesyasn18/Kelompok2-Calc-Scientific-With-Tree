@@ -1,9 +1,8 @@
 /*
-Dibuat oleh : Adinda Raisa Azzahra & Mahesya Setia Nugraha
+Dibuat oleh : Adinda Raisa Az-zahra & Mahesya Setia Nugraha
 Referensi logika: http://bwahyudi.staff.gunadarma.ac.id/Downloads/files/22353/INFIX1.pdf
 File : tree.h
 Deskripsi : Memuat header header proses konversi infix ke postfix hingga pembuatan binary tree dari hasil postfix
-
 */
 
 
@@ -57,6 +56,5 @@ address create_node_operand(double input);
 address create_node_operator(char input);
 void post_order(address root);
 double dequeue_operand(Queue * queueOperand);
-
 
 #endif

@@ -2,16 +2,21 @@
 dibuat oleh : Adinda Raisa Az-zahra & Mahesya Setia Nugraha
 referensi logika: http://bwahyudi.staff.gunadarma.ac.id/Downloads/files/22353/INFIX1.pdf
 file : tree.c
-Deskripsi : Memuat proses konversi infix ke postfix hingga pembuatan binary tree dari hasil postfix
-
+deskripsi : Memuat proses konversi infix ke postfix hingga pembuatan binary tree dari hasil postfix
 */
 
 #include <stdio.h>
+
 #include <stdlib.h>
+
 #include <string.h>
+
 #include <math.h>
+
 #include <ctype.h>
+
 #include "tree.h"
+
 #include "kalkulasi.h"
 
 /* Modul convert_postfix adalah modul yang digunakan untuk konversi infix ke postfix */
@@ -35,30 +40,29 @@ Queue convert_postfix(char * input) {
         if (isdigit(token) || (token == '-' && is_operator(input[i - 1])) || (token == '-' && i == 0) || (token == '-' && input[i - 1] == '(')) {
             char num[strlen(input)];
             j = 0;
-            
+
             /* jika token merupakan - (lambang negatif) maka masukan pada array num */
             if (token == '-') {
-                num[j++] = token; 
+                num[j++] = token;
                 i++;
             }
 
-            //melakukan perulangan inputan berikutnya hingga inputan bukan sebuah digit
+            /*melakukan perulangan inputan berikutnya hingga inputan bukan sebuah digit*/
             while (isdigit(input[i]) || input[i] == '.') {
                 num[j++] = input[i];
                 i++;
             }
 
-
             num[j] = '\0';
-            //mengubah char num menjadi angka menggunakan strtod (string to double)
+            /*mengubah char num menjadi angka menggunakan strtod (string to double)*/
             angka = strtod(num, NULL);
 
-            //memasukan angka ke queue postfix
+            /*memasukan angka ke queue postfix*/
             enqueue_operand( & postfix, angka);
 
-            //kembali ke index array input sebelumnya
+            /*kembali ke index array input sebelumnya*/
             i--;
-          /* proses untuk mencari derajat operator */
+            /* proses untuk mencari derajat operator */
         } else if (is_operator(token) && operatorStackTemp.top != NULL && operatorStackTemp.top -> oprtr != '(') {
             /* tempOperator diisi dengan operator yang terdapat di operatorStackTemp */
             tempOperator = operatorStackTemp.top -> oprtr;
@@ -69,21 +73,21 @@ Queue convert_postfix(char * input) {
             }
             /* jika terdapat kondisi dimana derajat token = tempOperator TAPI operatorStackTemp.top nya NULL maka dimasukkan ke dalam stack operatorStackTemp*/
             push_stack( & operatorStackTemp, token);
-          /* proses untuk operasi dalam kurung */  
+            /* proses untuk operasi dalam kurung */
         } else if (token == ')') {
-            /* operator pada operatorStackTemp ditampung oleh tempOperator */ 
+            /* operator pada operatorStackTemp ditampung oleh tempOperator */
             tempOperator = operatorStackTemp.top -> oprtr;
-            /* dilakukan perulangan hingga tempOperator '('  */ 
+            /* dilakukan perulangan hingga tempOperator '('  */
             while (tempOperator != '(') {
-                /* operator dimasukan ke dalam queue postfix  */ 
+                /* operator dimasukan ke dalam queue postfix  */
                 enqueue_operator( & postfix, pop_stack( & operatorStackTemp));
                 tempOperator = operatorStackTemp.top -> oprtr;
             }
-             /* operator '(' dikeluarkan dari stack operatorStackTemp*/ 
+            /* operator '(' dikeluarkan dari stack operatorStackTemp*/
             pop_stack( & operatorStackTemp);
 
-          /* proses untuk menetukan operator trigonometri */
-          /* operasi yang tersedia (sin, cos, tan, asin, acos, atan, cosecan, secan, cotangen) */
+            /* proses untuk menetukan operator trigonometri */
+            /* operasi yang tersedia (sin, cos, tan, asin, acos, atan, cosecan, secan, cotangen) */
         } else if (token == 's' || token == 'c' || token == 't' || token == 'a' || token == 'S' || token == 'C' || token == 'T' || token == 'A') {
             char trigono[7];
             char sudut[20];
@@ -95,7 +99,7 @@ Queue convert_postfix(char * input) {
                 /* jika tidak terdapat ')' maka akan muncul message error*/
                 if (input[i] == '\0') {
                     printf("Error: Tidak ditemukan karakter penutup ')'\n");
-                    exit(1) ; 
+                    exit(1);
                 }
 
                 /* jika input merupakan digit atau titik */
@@ -113,7 +117,7 @@ Queue convert_postfix(char * input) {
             hasil = proses_perhitungan_trigonometri(angka, trigono);
             /* hasil dari perhitungan dimasukkan ke dalam queue postfix */
             enqueue_operand( & postfix, hasil);
-        /* proses untuk operator log */
+            /* proses untuk operator log */
         } else if (token == 'l' || token == 'L') {
             char log[10];
             char Num[100];
@@ -127,7 +131,7 @@ Queue convert_postfix(char * input) {
                     /* jika tidak terdapat ')' maka akan muncul message error*/
                     if (input[i] == '\0') {
                         printf("Error: Tidak ditemukan karakter penutup ')'\n");
-                        exit(1) ; 
+                        exit(1);
                     }
 
                     /* jika input merupakan digit atau titik */
@@ -146,12 +150,12 @@ Queue convert_postfix(char * input) {
                 /* hasil dari perhitungan dimasukkan ke dalam queue postfix */
                 enqueue_operand( & postfix, hasil);
 
-              /* menghitung sebuah operasi logaritma basis 10 */
+                /* menghitung sebuah operasi logaritma basis 10 */
             } else {
                 /* jika tidak terdapat ')' maka akan muncul message error */
                 if (input[i] == '\0') {
                     printf("Error: Tidak ditemukan karakter penutup ')'\n");
-                    exit(1) ; 
+                    exit(1);
                 }
 
                 /* jika input merupakan digit atau titik */
@@ -171,19 +175,19 @@ Queue convert_postfix(char * input) {
                 /* hasil dari perhitungan dimasukkan ke dalam queue postfix */
                 enqueue_operand( & postfix, hasil);
             }
-          /* proses untuk operator faktorial dan persen */
+            /* proses untuk operator faktorial dan persen */
         } else if (token == '!' || token == '%') {
             double angka, hasil;
             /* jika inputan sebelumnya berupa angka */
             if (isdigit(input[i - 1])) {
                 /* keluarkan angka terakhir yang ada di queue postfix */
-                angka = dequeue_operand( & postfix); 
+                angka = dequeue_operand( & postfix);
                 /* menghitung sebuah operasi faktorial atau persen */
                 hasil = proses_perhitungan_single_operand_single_operator(angka, token);
                 /* hasil dari perhitungan dimasukkan ke dalam queue postfix */
                 enqueue_operand( & postfix, hasil);
             }
-          /* proses untuk operator akar pangkat dinamis dan akar pangkat 2 */
+            /* proses untuk operator akar pangkat dinamis dan akar pangkat 2 */
         } else if (token == 'v') {
             char nomor[100];
             double bilangan, bilangan2, hasil;
@@ -241,7 +245,7 @@ Queue convert_postfix(char * input) {
         /* hasil dari perhitungan dimasukkan ke dalam queue postfix */
         enqueue_operator( & postfix, tempOperator);
     }
-    
+
     /* mengembalikan queue postfix*/
     return postfix;
 }
@@ -280,7 +284,7 @@ void enqueue_operand(Queue * Postfix, double item) {
 void enqueue_operator(Queue * Postfix, char item) {
     node new_node_operator;
     /*membuat node baru*/
-    new_node_operator = create_node_list(); 
+    new_node_operator = create_node_list();
     new_node_operator -> oprtr = item; /*subvar oprtr diisi nilai dari parameter item */
 
     /* jika queue kosong */
@@ -321,7 +325,7 @@ double dequeue_operand(Queue * postfix) {
             /* suvbar next Last di kosongkan */
             postfix -> Last -> next = NULL;
             /* node pada throw di hapus dari memory */
-            free(Throw); 
+            free(Throw);
             return found;
         } else {
             /* Throw diisi Last */
@@ -361,12 +365,14 @@ void push_stack(Stack * First, char item) {
     node new_node;
     /*membuat node baru*/
     new_node = create_node_list();
-    if (new_node == NULL) { /* jika new_node kosong maka alokasi gagal*/
+    if (new_node == NULL) {
+        /* jika new_node kosong maka alokasi gagal*/
         printf("Gagal Alokasi");
     } else {
         new_node -> oprtr = item; /* subvar oprtr (operator) diisi oleh nilai dari parameter item */
         new_node -> next = NULL; /* subvar next diisi NULL */
-        if (First -> top == NULL) { /* jika top nya NULL */
+        if (First -> top == NULL) {
+            /* jika top nya NULL */
             First -> top = new_node; /* maka node baru akan menjadi top nya*/
             First -> top -> next = NULL;
         } else {
@@ -377,14 +383,14 @@ void push_stack(Stack * First, char item) {
     }
 }
 
-/*modul pop_stack untuk menghapus top pada stack (pop stack)*/ 
+/*modul pop_stack untuk menghapus top pada stack (pop stack)*/
 char pop_stack(Stack * First) {
     node node_temp;
     node_temp = First -> top;
     /*subvar top diisi dengan node yang ditunjuk oleh subvar next*/
     First -> top = node_temp -> next;
     return node_temp -> oprtr;
-    free(node_temp); /*node_temp di dealokasi*/ 
+    free(node_temp); /*node_temp di dealokasi*/
 }
 
 /* modul untuk membuat node baru pada setiap list yang dibentuk */
@@ -392,34 +398,35 @@ node create_node_list() {
     node new_node;
     /*melakukan alokasi sebuah node*/
     new_node = (node) malloc(sizeof(ElmtList));
-    if (new_node == NULL) { /*jika hasilnya NULL maka alokasi gagal*/
+    if (new_node == NULL) {
+        /*jika hasilnya NULL maka alokasi gagal*/
         printf("Gagal Alokasi");
     } else {
-        (new_node) -> next = NULL;  /*jika node berhasil dibuat*/
+        (new_node) -> next = NULL; /*jika node berhasil dibuat*/
     }
 
     return new_node; /*node kosong dikembalikan*/
 }
 
-/*modul create_tree adalah modul yang digunakan untuk membuat tree yang berisi ekspresi matematika yang diinputkan*/ 
+/*modul create_tree adalah modul yang digunakan untuk membuat tree yang berisi ekspresi matematika yang diinputkan*/
 address create_tree(Queue postfix) {
-	address new_node_tree;
-    address stack[50]; /*digunakan untuk bantuan pembuatan tree*/ 
+    address new_node_tree;
+    address stack[50]; /*digunakan untuk bantuan pembuatan tree*/
     node temp_postfix;
     int i, len, top = -1;
     infotype opera;
     double operand;
-    
-    temp_postfix = postfix.First; /*temp_postfix diisi dengan node First queue postfix*/ 
 
-    /* lakukan perulangan pada temp_postfix hingga NULL */ 
+    temp_postfix = postfix.First; /*temp_postfix diisi dengan node First queue postfix*/
+
+    /* lakukan perulangan pada temp_postfix hingga NULL */
     while (temp_postfix != NULL) {
         /*jika subvar oprtr (operator) tidak NULL */
         if (temp_postfix -> oprtr != '\0') {
             opera = temp_postfix -> oprtr; /*maka isi variable opera dengan operator yang ada di subvar oprtr*/
             new_node_tree = create_node_operator(opera); /*membuat node baru untuk operator*/
             /*subvar pointer left dan right diisi dengan node yang ditunjuk oleh top sebelumnya*/
-            right(new_node_tree) = stack[top--]; 
+            right(new_node_tree) = stack[top--];
             left(new_node_tree) = stack[top--];
         } else {
             operand = temp_postfix -> operand; /*maka isi variable operand dengan bilangan yang ada di subvar operand*/
@@ -439,8 +446,8 @@ address create_node_operator(char input) {
     new_node_operator = (address) malloc(sizeof(Tree));
     new_node_operator -> data = input; /*subvar data diisi input*/
     /*subvar left, right di NULL kan*/
-    new_node_operator -> left = NULL; 
-    new_node_operator -> right = NULL; 
+    new_node_operator -> left = NULL;
+    new_node_operator -> right = NULL;
     /*kembalikan stack index yang pertama (yang menunjuk root dari pohon)*/
     return new_node_operator;
 }

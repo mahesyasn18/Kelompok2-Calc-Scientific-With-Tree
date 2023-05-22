@@ -28,7 +28,7 @@ double operasi_perkalian(double bilangansatu, double bilangandua) {
 
 /* fungsi operasi sinus */
 /* menghitung nilai sinus dari suatu sudut */
-double operasiSinus(double bilangan) { 
+double operasi_sinus(double bilangan) { 
 	/* inputan menggunakan satuan derajat sehigga perlu dikonversi terlebih dahulu menuju radian */
     double radian = bilangan * (PI / 180); 
     /* untuk menghitung nilai jumlah semua sukunya */
@@ -50,7 +50,7 @@ double operasiSinus(double bilangan) {
 
 /* fungsi operasi cosinus */
 /* menghitung nilai cosinus dari suatu sudut */
-double operasiCosinus(double bilangan) { 
+double operasi_cosinus(double bilangan) { 
 	/* inputan menggunakan satuan derajat sehigga perlu dikonversi terlebih dahulu menuju radian */
     double radian = bilangan * (PI / 180); 
     /* untuk menghitung nilai jumlah semua sukunya */
@@ -74,7 +74,7 @@ double operasiCosinus(double bilangan) {
 
 /* fungsi operasi tangen */
 /* menghitung nilai tangen dari suatu sudut */
-double operasiTangen(double bilangan){
+double operasi_tangen(double bilangan){
 	double result;
 	
 	/* pengecualian pada beberapa case karena 1/0 hasilnya tidak terdefinisi */
@@ -83,7 +83,7 @@ double operasiTangen(double bilangan){
 		exit(1);
 	} else{
 		/* tangen merupakan hasil bagi sin dengan cos */
-		result=operasi_pembagian(operasiSinus(bilangan),operasiCosinus(bilangan)); 
+		result=operasi_pembagian(operasi_sinus(bilangan),operasi_cosinus(bilangan)); 
 		/* mengembalikan hasil pembagian */
 		return (result);
 	}
@@ -93,14 +93,14 @@ double operasiTangen(double bilangan){
 
 /* fungsi operasi cosecan */
 /* menghitung nilai cosecan dari suatu sudut */
-double operasiCosecan(double bilangan) {
+double operasi_cosecan(double bilangan) {
     double result;
     /* pengecualian pada beberapa case karena 1/0 hasilnya tidak terdefinisi */
     if (bilangan == 0 || bilangan == 180 || bilangan == 360) {
         printf("Not Defined \n");
     } else {
     	/* cosecan merupakan satu per dari sinus */
-        result = operasi_pembagian(1, operasiSinus(bilangan)); 
+        result = operasi_pembagian(1, operasi_sinus(bilangan)); 
         /* mengembalikan hasil pembagian */
         return (result);
     }
@@ -109,14 +109,14 @@ double operasiCosecan(double bilangan) {
 
 /* fungsi operasi secan */
 /* menghitung nilai secan dari suatu sudut */
-double operasiSecan(double bilangan) {
+double operasi_secan(double bilangan) {
     double result;
     /* pengecualian pada beberapa case karena 1/0 hasilnya tidak terdefinisi */
     if (bilangan == 90 || bilangan == 270) {
         printf("Not Defined \n");
     } else {
     	/* secan merupakan satu per dari cosinus */
-        result = operasi_pembagian(1, operasiCosinus(bilangan)); 
+        result = operasi_pembagian(1, operasi_cosinus(bilangan)); 
         /* mengembalikan hasil pembagian */
         return (result);
     }
@@ -124,14 +124,14 @@ double operasiSecan(double bilangan) {
 
 /* fungsi operasi cotangen */
 /* menghitung nilai cotangen dari suatu sudut */
-double operasiCotangen(double bilangan) {
+double operasi_cotangen(double bilangan) {
     double result;
     /* pengecualian pada beberapa case karena 1/0 hasilnya tidak terdefinisi */
     if (bilangan == 0 || bilangan == 180 || bilangan == 360) {
         printf("Not Defined \n");
     } else {
     	/* cotangen merupakan satu per dari tangen */
-        result = operasi_pembagian(1, operasiTangen(bilangan)); 
+        result = operasi_pembagian(1, operasi_tangen(bilangan)); 
         /* mengembalikan hasil pembagian */
         return (result);
     }

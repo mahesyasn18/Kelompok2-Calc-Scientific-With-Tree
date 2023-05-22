@@ -1,3 +1,9 @@
+/*
+dibuat oleh : Adinda Raisa Az-zahra & Mahesya Setia Nugraha
+file : kalkulasi.c
+deskripsi : Memuat proses pengarahan kalkulasi operasi perhitungan yang dibedakan melalui beberapa modul
+*/
+
 #include "kalkulasi.h"
 #include "header/mahesya_dev.h"
 #include "header/adinda_dev.h"
@@ -34,23 +40,23 @@ double kalkulasi(address root) {
 /* Modul untuk identifikasi proses trigonometri dan validasi*/
 double proses_perhitungan_trigonometri(double angka, char operator[]) {
     if (strcmp(operator, "sin(") == 0) { /* operator == "sin(" */
-        return operasiSinus(angka); 
-    } else if (strcmp(operator, "cos(") == 0) {
-        return operasiCosinus(angka);
-    } else if (strcmp(operator, "tan(") == 0) {
-        return operasiTangen(angka);
-    } else if (strcmp(operator, "asin(") == 0) {
+        return operasi_sinus(angka); 
+    } else if (strcmp(operator, "cos(") == 0) { /* operator == "cos(" */
+        return operasi_cosinus(angka);
+    } else if (strcmp(operator, "tan(") == 0) { /* operator == "tan(" */
+        return operasi_tangen(angka);
+    } else if (strcmp(operator, "asin(") == 0) { /* operator == "asin(" */
         return operasi_asin(angka);
-    } else if (strcmp(operator, "acos(") == 0) {
+    } else if (strcmp(operator, "acos(") == 0) { /* operator == "acos(" */
         return operasi_acos(angka);
-    } else if (strcmp(operator, "atan(") == 0) {
+    } else if (strcmp(operator, "atan(") == 0) { /* operator == "atan(" */
         return operasi_atan(angka);
-    } else if (strcmp(operator, "csc(") == 0) {
-        return operasiCosecan(angka);
-    } else if (strcmp(operator, "sec(") == 0) {
-        return operasiSecan(angka);
-    } else if (strcmp(operator, "cot(") == 0) {
-        return operasiCotangen(angka);
+    } else if (strcmp(operator, "csc(") == 0) { /* operator == "csc(" */
+        return operasi_cosecan(angka);
+    } else if (strcmp(operator, "sec(") == 0) { /* operator == "sec(" */
+        return operasi_secan(angka);
+    } else if (strcmp(operator, "cot(") == 0) { /* operator == "cot(" */
+        return operasi_cotangen(angka);
     } else {
         if (strcmp(operator, "SIN") == 0 || strcmp(operator, "SIN(") == 0 || strcmp(operator, "sin") == 0) {
             printf("Error, operator yang anda masukkan: %s, seharusnya sin(...), contoh sin(60)", operator);
@@ -80,7 +86,7 @@ double proses_perhitungan_trigonometri(double angka, char operator[]) {
 /* Proses perhitungan logaritma */
 /* Modul untuk validasi penulisan operasi logaritma */
 double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) {
-    if (strcmp(opera, "log(") == 0) {
+    if (strcmp(opera, "log(") == 0) { /* opera == "log(" */
         return operasi_logaritma(angka2, angka1); /* Jika sesuai maka akan masuk ke modul operasi_logaritma */
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {
@@ -96,7 +102,7 @@ double proses_perhitungan_logaritma(double angka1, double angka2, char opera[]) 
 /* Proses perhitungan untuk operasi logaritma basis sepuluh atau operasi yang memerlukan 1 operand dan string operator dan 
 dan validasi penulisannya*/
 double proses_perhitungan_single_operand_long_operator(double angka, char opera[]) {
-    if (strcmp(opera, "log(") == 0) {
+    if (strcmp(opera, "log(") == 0) { /* opera == "log(" */
         return operasi_logaritma_basis_sepuluh(angka);
     } else {
         if (strcmp(opera, "LOG(") == 0 || strcmp(opera, "log") == 0 || strcmp(opera, "LOG") == 0) {

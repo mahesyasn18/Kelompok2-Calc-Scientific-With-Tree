@@ -1,3 +1,9 @@
+/*
+dibuat oleh : Adinda Raisa Az-zahra & Mahesya Setia Nugraha
+file : kalkulasi.h
+deskripsi : Memuat header header modul proses pengarahan kalkulasi operasi perhitungan yang dipisahkan melalui beberapa modul
+*/
+
 #ifndef kalkulasi_h
 #define kalkulasi_h
 #include <stdio.h>

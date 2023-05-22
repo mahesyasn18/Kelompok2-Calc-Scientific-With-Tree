@@ -32,7 +32,7 @@ int main(int argc, char * argv[]) {
 
 		/* Menampilkan hasil post order dari tree */
         printf("PostOrder: ");  
-        post_order(root);  
+        post_order(root);
 
 		/* Menampilkan hasil kalkulasi */
         printf("\nhasilnya adalah %g\n", hasil);
